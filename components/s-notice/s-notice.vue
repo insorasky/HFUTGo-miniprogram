@@ -1,6 +1,6 @@
 <template name="s-notice">
 	<view>
-		<u-notice-bar mode="horizontal" :list="noticeList" :type="theme" :more-icon="true" @getMore="showList = true" />
+		<u-notice-bar border-radius="100" mode="horizontal" :list="noticeList" :type="theme" :more-icon="true" @getMore="showList = true" @click="showList = true" />
 		<s-popup title="通知列表" v-model="showList" mode="center">
 			<view v-for="(notice, index) in notices" :key="index">
 				<view class="notice_item">

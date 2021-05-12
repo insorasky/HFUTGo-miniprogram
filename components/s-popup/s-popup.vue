@@ -1,13 +1,15 @@
 <template name="s-popup">
 	<view>
-		<u-popup :mode="mode" border-radius="14" v-model="showing" :closeable="true" :width="width" :height="height">
+		<u-popup :mode="mode" border-radius="14" v-model="showing" :closeable="true" :width="width" :border-radius="35">
 			<view class="popupbody">
 				<view class="popuptitle">
 					<text>{{title}}</text>
 				</view>
-				<view>
-					<slot />
-				</view>
+				<scroll-view scroll-y="true" style="height: 750rpx;">
+					<view>
+						<slot />
+					</view>
+				</scroll-view>
 			</view>
 		</u-popup>
 	</view>
@@ -53,7 +55,7 @@
 			this.showing = this.value
 			if(this.mode != 'bottom'){
 				this.height = '850rpx'
-				this.width = '600rpx'
+				this.width = '650rpx'
 			}
 		}
 	}

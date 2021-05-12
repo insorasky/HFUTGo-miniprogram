@@ -1,8 +1,10 @@
 <template>
 	<view>
-		<view class="body">
-			<menu-page v-show="current == 0" />
+		<view class="todaybody" v-show="current == 1">
 			<today v-show="current == 1" />
+		</view>
+		<view class="body" v-show="current == 0 || current == 2">
+			<menu-page v-show="current == 0" />
 			<my v-show="current == 2" />
 		</view>
 		<u-tabbar v-model="current" :list="list" :mid-button="true" :active-color="$cfg.theme_color"></u-tabbar>
@@ -60,5 +62,8 @@
 <style>
 	.body{
 		padding: 30rpx;
+	}
+	.todaybody{
+		padding: 20rpx;
 	}
 </style>
