@@ -1,0 +1,15 @@
+{
+  "name": "HFUTGo",
+  "version": "1.0.0",
+  "description": "HFUTGo",
+  "main": "main.js",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Sora",
+  "license": "ISC"
+}
