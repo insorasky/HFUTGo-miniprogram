@@ -1,13 +1,11 @@
 <template>
 	<view>
-		<view class="todaybody" v-show="current == 1">
-			<today v-show="current == 1" />
-		</view>
-		<view class="body" v-show="current == 0 || current == 2">
+		<view class="body">
 			<menu-page v-show="current == 0" />
+			<today v-show="current == 1" />
 			<my v-show="current == 2" />
 		</view>
-		<u-tabbar v-model="current" :list="list" :mid-button="true" :active-color="$cfg.theme_color"></u-tabbar>
+		<u-tabbar v-model="current" :list="list" :mid-button="true" active-color="#4da0e0" :border-top="false"></u-tabbar>
 	</view>
 </template>
 
@@ -33,8 +31,8 @@
 						customIcon: false,
 					},
 					{
-						iconPath: "home",
-						selectedIconPath: "home-fill",
+						iconPath: "/static/icon/home.png",
+						selectedIconPath: "/static/icon/home_selected.png",
 						text: '今日',
 						midButton: true,
 						customIcon: false,

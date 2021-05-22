@@ -2,6 +2,7 @@ import userInfo from '../store/userinfo.js'
 import cfg from '../data/config.js'
 
 const request = function(url, method='GET', params=null, json=null){
+	console.log(url)
 	url = cfg.baseurl + url
 	let header = {}
 	if(userInfo.state.userInfo.token){
@@ -21,9 +22,9 @@ const request = function(url, method='GET', params=null, json=null){
 			header: header,
 			method: method,
 			success: (res) => {
-				if(res.data.status == 200)
+				if(res.data.status == 200){
 					resolve(res.data.data)
-				else{
+				}else{
 					uni.showToast({
 						title: res.data.error + '(' + res.data.status + ')'
 					})

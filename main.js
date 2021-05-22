@@ -25,6 +25,9 @@ Vue.prototype.$user = user
 import request from './common/request/request.js'
 Vue.prototype.$request = request
 
+// 引入全局操作
+import hfutgo from './common/func/hfutgo.js'
+Vue.prototype.$hfutgo = hfutgo
 Vue.config.productionTip = false
 
 App.mpType = 'app'

@@ -35,6 +35,15 @@
                 "enablePullDownRefresh": false
             }
         }
+        ,{
+            "path" : "pages/wash/list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "洗衣机查询",
+                "enablePullDownRefresh": true
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

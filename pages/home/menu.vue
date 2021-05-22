@@ -9,13 +9,13 @@
 					<u-icon name="photo" :size="iconSize" label="洗衣机" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="rmb-circle" :size="iconSize" label="校园卡" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="rmb-circle" :size="iconSize" label="校园卡" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="calendar" :size="iconSize" label="校历表" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="calendar" :size="iconSize" label="校历表" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="attach" :size="iconSize" label="信息公开" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="attach" :size="iconSize" label="信息公开" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 			</u-grid>
 		</view>
@@ -25,22 +25,22 @@
 			</view>
 			<u-grid col="3" :border="false">
 				<u-grid-item>
-					<u-icon name="list-dot" :size="iconSize" label="课程表" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="list-dot" :size="iconSize" label="课程表" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="edit-pen" :size="iconSize" label="考试安排" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="edit-pen" :size="iconSize" label="考试安排" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="search" :size="iconSize" label="课程检索" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="search" :size="iconSize" label="课程检索" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="thumb-up" :size="iconSize" label="成绩查询" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="thumb-up" :size="iconSize" label="成绩查询" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="server-man" :size="iconSize" label="我的评教" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="server-man" :size="iconSize" label="我的评教" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="order" :size="iconSize" label="空教室查询" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="order" :size="iconSize" label="空教室查询" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 			</u-grid>
 		</view>
@@ -50,16 +50,16 @@
 			</view>
 			<u-grid col="3" :border="false">
 				<u-grid-item>
-					<u-icon name="map" :size="iconSize" label="图书馆余位" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="map" :size="iconSize" label="图书馆余位" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="star" :size="iconSize" label="热门借阅" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="star" :size="iconSize" label="热门借阅" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="search" :size="iconSize" label="馆藏检索" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="search" :size="iconSize" label="馆藏检索" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="info-circle" :size="iconSize" label="借阅查询" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="info-circle" :size="iconSize" label="借阅查询" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 			</u-grid>
 		</view>
@@ -69,16 +69,16 @@
 			</view>
 			<u-grid col="3" :border="false">
 				<u-grid-item>
-					<u-icon name="file-text" :size="iconSize" label="成绩查询" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="file-text" :size="iconSize" label="成绩查询" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="integral" :size="iconSize" label="排行榜" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="integral" :size="iconSize" label="排行榜" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="more-circle" :size="iconSize" label="项目列表" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="more-circle" :size="iconSize" label="项目列表" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="bag" :size="iconSize" label="已报名项目" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="bag" :size="iconSize" label="已报名项目" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 			</u-grid>
 		</view>
@@ -88,10 +88,10 @@
 			</view>
 			<u-grid col="3" :border="false">
 				<u-grid-item>
-					<u-icon name="android-fill" :size="iconSize" label="自动打卡" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="android-fill" :size="iconSize" label="自动打卡" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="heart" :size="iconSize" label="健跑刷分" label-pos="bottom" margin-top="12rpx"/>
+					<u-icon name="heart" :size="iconSize" label="健跑刷分" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 			</u-grid>
 		</view>

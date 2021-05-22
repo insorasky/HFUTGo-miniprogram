@@ -47,6 +47,9 @@
 		methods: {
 			login(){
 				console.log(this.$user.login(this.id, this.password))
+				uni.reLaunch({
+					url:'/pages/index'
+				})
 			}
 		},
 		onLoad() {

@@ -1,7 +1,7 @@
 <script>
 export default {
 	onLaunch: function(){
-		// this.$user.initialize()
+		this.$user.initialize()
 		
 		// 检查更新
 		if (wx.canIUse("getUpdateManager")) {

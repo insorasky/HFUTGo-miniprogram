@@ -5,7 +5,7 @@
 				<view class="popuptitle">
 					<text>{{title}}</text>
 				</view>
-				<scroll-view scroll-y="true" style="height: 750rpx;">
+				<scroll-view scroll-y="true" :style="'height: ' + height + ';'">
 					<view>
 						<slot />
 					</view>
@@ -54,7 +54,7 @@
 		created() {
 			this.showing = this.value
 			if(this.mode != 'bottom'){
-				this.height = '850rpx'
+				this.height = '750rpx'
 				this.width = '650rpx'
 			}
 		}
