@@ -6,7 +6,7 @@
 			</view>
 			<u-grid col="3" :border="false">
 				<u-grid-item>
-					<u-icon name="photo" :size="iconSize" label="洗衣机" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="photo" :size="iconSize" label="洗衣机" label-pos="bottom" margin-top="20rpx" @click="navigate('wash/list')"/>
 				</u-grid-item>
 				<u-grid-item>
 					<u-icon name="rmb-circle" :size="iconSize" label="校园卡" label-pos="bottom" margin-top="20rpx"/>
@@ -114,6 +114,13 @@
 					this.showDev = res.data
 				}
 			})
+		},
+		methods: {
+			navigate(path){
+				uni.navigateTo({
+					url: '/pages/' + path
+				})
+			}
 		}
 	}
 </script>
