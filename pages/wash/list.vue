@@ -76,7 +76,6 @@
 			},
 			change_building(index){
 				this.current_building = index
-				this.machines = []
 				uni.startPullDownRefresh()
 			}
 		},
@@ -86,6 +85,7 @@
 				'/wash/haier',
 				'/wash/ujing'
 			]
+			this.machines = []
 			this.$request('/wash/machines', 'GET', {
 				building: this.buildings[this.current_building].name
 			}).then(data => {
