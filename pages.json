@@ -11,14 +11,6 @@
                 "enablePullDownRefresh": false
 			}
 		}
-	    ,{
-            "path" : "pages/user/login",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "登录",
-                "enablePullDownRefresh": false
-            }
-        }
         ,{
             "path" : "pages/user/verify",
             "style" :                                                                                    
@@ -28,7 +20,7 @@
             }
         }
         ,{
-            "path" : "pages/eduadmin/login",
+            "path" : "pages/user/login",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "登录信息门户",

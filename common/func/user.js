@@ -34,7 +34,7 @@ const user = {
 			if(info){
 				if(info.id == ""){
 					uni.reLaunch({
-						url: '/pages/eduadmin/login'
+						url: '/pages/user/login'
 					})
 					reject('未登录')
 				}
@@ -50,14 +50,14 @@ const user = {
 							title: '密码错误！'
 						})
 						uni.reLaunch({
-							url: '/pages/eduadmin/login'
+							url: '/pages/user/login'
 						})
 						resolve('密码错误')
 					}
 				})
 			}else{
 				uni.reLaunch({
-					url: '/pages/eduadmin/login'
+					url: '/pages/user/login'
 				})
 				resolve('未登录')
 			}

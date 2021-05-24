@@ -47,7 +47,7 @@
 						if(res.confirm){
 							this.$user.logout()
 							uni.reLaunch({
-								url: '/pages/eduadmin/login'
+								url: '/pages/user/login'
 							})
 						}
 					}
