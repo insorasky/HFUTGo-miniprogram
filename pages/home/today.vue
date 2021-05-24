@@ -157,7 +157,7 @@
 		},
 		beforeCreate() {
 			let that = this
-			let day = new Date().getDay() + 1
+			let day = new Date().getDay()
 			this.$request('/user/today').then(data => {
 				that.today = data
 			})

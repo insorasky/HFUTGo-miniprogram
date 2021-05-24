@@ -37,7 +37,7 @@ const schedule = {
 		return new Promise((resolve, reject) => {
 			var result = []
 			semester = semester || config.defaultSemester
-			day = day || (new Date().getDay() + 1)
+			day = day || new Date().getDay()
 			this.getAll().then(data => {
 				week = week || data.current_week
 				for(const item of data.lessons){

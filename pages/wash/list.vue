@@ -68,6 +68,7 @@
 		methods: {
 			change_campus(index){
 				this.current_campus = index
+				uni.setStorageSync('wash_campus', index)
 				this.$request('/wash/buildings?campus=' + this.campus[this.current_campus].name).then(data => {
 					this.buildings = data
 					this.current_building = 0
@@ -76,6 +77,7 @@
 			},
 			change_building(index){
 				this.current_building = index
+				uni.setStorageSync('wash_building', index)
 				uni.startPullDownRefresh()
 			}
 		},
@@ -109,6 +111,12 @@
 			})
 		},
 		onLoad() {
+			uni.getStorage({
+				key: 'wash_campus',
+				success: (res) => {
+					this.current_campus = res.data
+				}
+			})
 			this.change_campus(this.current_campus)
 		}
 	}

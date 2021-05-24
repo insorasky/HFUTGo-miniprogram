@@ -34,7 +34,14 @@
                 "navigationBarTitleText": "洗衣机查询",
                 "enablePullDownRefresh": true
             }
-            
+        }
+        ,{
+            "path" : "pages/others/card",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "校园卡",
+                "enablePullDownRefresh": true
+            }
         }
     ],
 	"globalStyle": {
