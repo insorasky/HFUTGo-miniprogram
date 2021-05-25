@@ -26,7 +26,8 @@ const request = function(url, method='GET', params=null, json=null){
 					resolve(res.data.data)
 				}else{
 					uni.showToast({
-						title: res.data.error + '(' + res.data.status + ')'
+						title: res.data.error + '(' + res.data.status + ')',
+						icon: 'none'
 					})
 					reject(res.data)
 				}

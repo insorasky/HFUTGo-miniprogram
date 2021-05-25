@@ -13,6 +13,7 @@
 	import my from './home/my.vue'
 	import today from './home/today.vue'
 	import menuPage from './home/menu.vue'
+	import updateLog from '../common/data/update_log.js'
 	export default {
 		components:{
 			my,

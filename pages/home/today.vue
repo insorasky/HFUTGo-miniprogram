@@ -88,7 +88,7 @@
 					<text>第二课堂</text>
 				</view>
 				<s-list :border="false" :empty="scProjects.length == 0">
-					<u-cell-item v-for="(project, i) in scProjects" :title="project.name" :label="project.organizer" @click="" :border-bottom="false"></u-cell-item>
+					<u-cell-item v-for="(project, i) in scProjects" :title="project.name" :label="project.organizer" @click="" :border-bottom="false" :key="i"></u-cell-item>
 				</s-list>
 			</view>
 			<view class="news" v-show="false">

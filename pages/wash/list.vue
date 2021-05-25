@@ -4,11 +4,12 @@
 		<u-tabs :list="buildings" :current="current_building" @change="change_building" />
 		<s-list :empty="false" :full="true" other-height="300rpx" :cell-group="false">
 			<s-item
-				v-for="machine in machines"
+				v-for="(machine, i) in machines"
 				:title="machine.name"
 				:value="machine.status"
 				:value-style="(machine.status == '空闲') ? availableStyle : {}"
 				:label="types[machine.type - 1]"
+				:key="i"
 			></s-item>
 		</s-list>
 	</view>
