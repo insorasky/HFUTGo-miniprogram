@@ -12,7 +12,7 @@
 					<u-icon name="rmb-circle" :size="iconSize" label="校园卡" label-pos="bottom" margin-top="20rpx" @click="navigate('others/card')"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="calendar" :size="iconSize" label="校历表" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="calendar" :size="iconSize" label="校历表" label-pos="bottom" margin-top="20rpx" @click="navigate('others/calendar')"/>
 				</u-grid-item>
 				<u-grid-item>
 					<u-icon name="attach" :size="iconSize" label="信息公开" label-pos="bottom" margin-top="20rpx"/>
@@ -69,7 +69,7 @@
 			</view>
 			<u-grid col="3" :border="false">
 				<u-grid-item>
-					<u-icon name="file-text" :size="iconSize" label="成绩查询" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="file-text" :size="iconSize" label="成绩查询" label-pos="bottom" margin-top="20rpx" @click="navigate('secondclass/score')"/>
 				</u-grid-item>
 				<u-grid-item>
 					<u-icon name="integral" :size="iconSize" label="排行榜" label-pos="bottom" margin-top="20rpx"/>

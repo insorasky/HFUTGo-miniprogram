@@ -26,38 +26,17 @@
 				],
 				current_campus: 0,
 				buildings: [
-					{name: '1号楼'},
-					{name: '2号楼'},
-					{name: '3号楼'},
-					{name: '4号楼'},
-					{name: '1号楼'},
-					{name: '2号楼'},
-					{name: '3号楼'},
-					{name: '4号楼'},
+					{name: '载入中'},
 				],
 				current_building: 0,
 				machines: [
 					{
-						name: '新区2#南楼5楼1号机',
+						name: '载入中',
 						type: 1,
 						NQT: '',
 						machineid: '',
-						status: '空闲'
-					},
-					{
-						name: '新区2#南楼5楼2号机',
-						type: 2,
-						NQT: '',
-						machineid: '',
-						status: '使用中'
-					},
-					{
-						name: '新区2#南楼5楼3号机',
-						type: 3,
-						NQT: '',
-						machineid: '',
-						status: '设备损坏'
-					},
+						status: '载入中'
+					}
 				],
 				types: ['企鹅洗衣', '海尔云洗衣', 'U净洗衣'],
 				availableStyle: {
@@ -70,15 +49,23 @@
 			change_campus(index){
 				this.current_campus = index
 				uni.setStorageSync('wash_campus', index)
+				let storageBuilding = uni.getStorageSync('wash_building')
 				this.$request('/wash/buildings?campus=' + this.campus[this.current_campus].name).then(data => {
 					this.buildings = data
 					this.current_building = 0
+					this.buildings.forEach((item, index, err) => {
+						if(item.name == storageBuilding){
+							this.current_building = index
+							console.log(item.name)
+						}
+					})
+					console.log(this.current_building)
 					uni.startPullDownRefresh()
 				})
 			},
 			change_building(index){
 				this.current_building = index
-				uni.setStorageSync('wash_building', index)
+				uni.setStorageSync('wash_building', this.buildings[index].name)
 				uni.startPullDownRefresh()
 			}
 		},

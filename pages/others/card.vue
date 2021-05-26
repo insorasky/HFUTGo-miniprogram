@@ -33,7 +33,7 @@
 					@click="showDetailPopup(i)"
 					:key="i"
 				/>
-				<u-loadmore />
+				<u-loadmore :status="loading" @loadmore="loadMore" />
 			</s-list>
 		</view>
 		<s-popup v-model="showDetail" title="交易详情">
@@ -77,7 +77,13 @@
 				currentDetailIndex: 0,
 				currentPage: 1,
 				showLose: false,
-				showDetail: false
+				showDetail: false,
+				loading: false,
+				loadText: {
+					loadmore: '上拉或点击加载下一页',
+					loading: '在获取了在获取了',
+					nomore: '莫得了',
+				},
 			};
 		},
 		methods: {
@@ -88,6 +94,9 @@
 			showLosePopup(index){
 				this.showLose = true
 			},
+			loadMore(){
+				
+			}
 		},
 		onLoad(){
 			uni.startPullDownRefresh()
@@ -105,6 +114,9 @@
 					})
 				})
 			})
+		},
+		onReachBottom() {
+			this.loadMore()
 		}
 	}
 </script>

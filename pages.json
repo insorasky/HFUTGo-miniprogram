@@ -43,6 +43,24 @@
                 "enablePullDownRefresh": true
             }
         }
+        ,{
+            "path" : "pages/secondclass/score",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "二课成绩",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/others/calendar",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "校历表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
