@@ -7,7 +7,7 @@
 				v-for="(machine, i) in machines"
 				:title="machine.name"
 				:value="machine.status"
-				:value-style="(machine.status == '空闲') ? availableStyle : {}"
+				:value-style="(machine.status == '空闲') ? availableStyle : defaultStyle"
 				:label="types[machine.type - 1]"
 				:key="i"
 			></s-item>
@@ -42,7 +42,8 @@
 				availableStyle: {
 					color: '#00BB00',
 					fontWeight: 'bold',
-				}
+				},
+				defaultStyle: {}
 			};
 		},
 		methods: {

@@ -12,7 +12,11 @@
 			:value-style="valueStyle"
 			:label-style="labelStyle"
 			:center="true"
-		></u-cell-item>
+			>
+				<view slot="right-icon">
+					<slot />
+				</view>
+			</u-cell-item>
 		</view>
 	</view>
 </template>

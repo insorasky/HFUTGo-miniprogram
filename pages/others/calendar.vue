@@ -1,10 +1,7 @@
 <template>
 	<view>
-		<u-sticky :bg-color="$cfg.background_color">
-			<u-subsection :list="list" :current="currentCampus" class="selector" @change="changeCampus"></u-subsection>
-		</u-sticky>
-		
-		<u-image v-for="(pic, i) in pictures" :src="pic" class="image" mode="widthFix" width="700rpx" @click="showImage(i)"></u-image>
+		<u-subsection :list="list" :current="currentCampus" class="selector" @change="changeCampus"></u-subsection>
+		<u-image v-for="(pic, i) in pictures" :src="pic" class="image" mode="widthFix" @click="showImage(i)" :key="i"></u-image>
 	</view>
 </template>
 
@@ -49,9 +46,9 @@
 
 <style>
 	.selector{
-		margin: 25rpx;
+		margin: 10rpx;
 	}
 	.image{
-		margin: 25rpx;
+		margin-top: 15rpx;
 	}
 </style>

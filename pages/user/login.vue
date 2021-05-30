@@ -46,14 +46,19 @@
 		},
 		methods: {
 			login(){
-				console.log(this.$user.login(this.id, this.password))
-				uni.reLaunch({
-					url:'/pages/index'
+				this.$user.login(this.id, this.password).then(data => {
+					uni.reLaunch({
+						url:'/pages/index'
+					})
 				})
 			}
 		},
 		onLoad() {
-			
+			// #ifdef MP-WEIXIN  
+			if(wx.hideHomeButton){  
+			    wx.hideHomeButton();  
+			}  
+			// #endif
 		}
 	}
 </script>

@@ -72,7 +72,7 @@
 					<u-icon name="file-text" :size="iconSize" label="成绩查询" label-pos="bottom" margin-top="20rpx" @click="navigate('secondclass/score')"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="integral" :size="iconSize" label="排行榜" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="integral" :size="iconSize" label="排行榜" label-pos="bottom" margin-top="20rpx" @click="navigate('secondclass/ranking')"/>
 				</u-grid-item>
 				<u-grid-item>
 					<u-icon name="more-circle" :size="iconSize" label="项目列表" label-pos="bottom" margin-top="20rpx"/>

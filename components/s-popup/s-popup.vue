@@ -5,6 +5,9 @@
 				<view class="popuptitle">
 					<text>{{title}}</text>
 				</view>
+				<view class="subtitle" v-show="subtitle != ''">
+					<text>{{subtitle}}</text>
+				</view>
 				<scroll-view scroll-y="true" :style="'height: ' + height + ';'">
 					<view>
 						<slot />
@@ -28,6 +31,10 @@
 				default: false
 			},
 			title:{
+				type: String,
+				default: ''
+			},
+			subtitle:{
 				type: String,
 				default: ''
 			},
@@ -68,5 +75,21 @@
 	.popuptitle{
 		font-size: 50rpx;
 		padding-bottom: 20rpx;
+	}
+	.subtitle{
+		font-size: 35rpx;
+		position:relative;
+		padding-left:30rpx;
+		color: #808080;
+		box-sizing:content-box;
+		&::after{
+			position:absolute;
+			content:"";
+			left:10rpx;top:10rpx;
+			height:24rpx;width:6rpx;
+			border-radius:30px;
+			background-color:#999;
+			z-index:2;
+		}
 	}
 </style>

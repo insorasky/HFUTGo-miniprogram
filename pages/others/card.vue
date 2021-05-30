@@ -113,6 +113,8 @@
 						uni.stopPullDownRefresh()
 					})
 				})
+			}).catch(err => {
+				
 			})
 		},
 		onReachBottom() {
