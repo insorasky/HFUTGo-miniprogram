@@ -70,6 +70,33 @@
             }
             
         }
+        ,{
+            "path" : "pages/secondclass/my",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "已报名项目",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/secondclass/list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "项目列表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/secondclass/info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "项目信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

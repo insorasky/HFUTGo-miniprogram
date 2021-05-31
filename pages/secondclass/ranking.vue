@@ -45,6 +45,7 @@
 		},
 		methods:{
 			changeCategory(index){
+				uni.showLoading()
 				this.currentCategary = index
 				this.$request('/sc/ranking?type=' + index).then(data => {
 					this.data = data
@@ -54,6 +55,7 @@
 							this.data[index].hour = data.hour
 						})
 					})
+					uni.hideLoading()
 				})
 			},
 			showItem(index){
