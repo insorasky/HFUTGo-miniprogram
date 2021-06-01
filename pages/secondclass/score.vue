@@ -12,24 +12,7 @@
 		data() {
 			return {
 				hours: 0,
-				data: [
-					{
-						title: '思政学习',
-						score: 3
-					},
-					{
-						title: '思政学习',
-						score: 3
-					},
-					{
-						title: '思政学习',
-						score: 3
-					},
-					{
-						title: '思政学习',
-						score: 3
-					},
-				],
+				data: [],
 			};
 		},
 		onLoad() {
