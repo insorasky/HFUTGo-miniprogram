@@ -97,6 +97,42 @@
             }
             
         }
+        ,{
+            "path" : "pages/library/freeseat",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "图书馆余位",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/library/hot",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "热门借阅",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/library/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "馆藏检索",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/library/mybooks",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "借阅查询",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

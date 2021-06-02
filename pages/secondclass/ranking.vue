@@ -4,7 +4,7 @@
 		<s-list :cell-group="true">
 			<u-cell-item v-for="(item, i) in data" :key="i" :title="item.name" :value="`共${item.sum}分 共${item.hour}小时`" @click="showItem(i)" :label="item.clazz"></u-cell-item>
 		</s-list>
-		<s-popup :title="data[currentItem].name || ''" v-model="showPopup">
+		<s-popup v-if="currentItem != -1" :title="data[currentItem].name || ''" v-model="showPopup">
 			<s-list :cell-group="true">
 				<u-cell-item v-for="(item, i) in data[currentItem].data" :title="item.title" :key="i" :arrow="false">
 					<u-rate :count="5" v-model="item.score" :disabled="false" active-color="#F9F900"></u-rate>
@@ -30,16 +30,8 @@
 					}
 				],
 				currentCategary: 0,
-				data: [{
-					id: '',
-					name: '加载中',
-					rank: '',
-					sum: '0',
-					clazz: '',
-					hour: '',
-					data: []
-				}],
-				currentItem: 0,
+				data: [],
+				currentItem: -1,
 				showPopup: false,
 			};
 		},

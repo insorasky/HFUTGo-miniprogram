@@ -14,11 +14,14 @@
 				<u-grid-item>
 					<u-icon name="calendar" :size="iconSize" label="校历表" label-pos="bottom" margin-top="20rpx" @click="navigate('others/calendar')"/>
 				</u-grid-item>
+				<!--
 				<u-grid-item>
 					<u-icon name="attach" :size="iconSize" label="信息公开" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
+				-->
 			</u-grid>
 		</view>
+		<!--
 		<view class="group">
 			<view class="title">
 				<text>教学服务</text>
@@ -44,22 +47,23 @@
 				</u-grid-item>
 			</u-grid>
 		</view>
+		-->
 		<view class="group">
 			<view class="title">
 				<text>图书馆</text>
 			</view>
 			<u-grid col="3" :border="false">
 				<u-grid-item>
-					<u-icon name="map" :size="iconSize" label="图书馆余位" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="map" :size="iconSize" label="图书馆余位" label-pos="bottom" margin-top="20rpx" @click="navigate('library/freeseat')"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="star" :size="iconSize" label="热门借阅" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="star" :size="iconSize" label="热门借阅" label-pos="bottom" margin-top="20rpx" @click="navigate('library/hot')"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="search" :size="iconSize" label="馆藏检索" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="search" :size="iconSize" label="馆藏检索" label-pos="bottom" margin-top="20rpx" @click="navigate('library/search')"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="info-circle" :size="iconSize" label="借阅查询" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="info-circle" :size="iconSize" label="借阅查询" label-pos="bottom" margin-top="20rpx" @click="navigate('library/mybooks')"/>
 				</u-grid-item>
 			</u-grid>
 		</view>

@@ -3,7 +3,7 @@
 		<s-item v-for="(item, i) in data" :title="item.title" :key="i">
 			<u-rate :count="5" v-model="item.score" :disabled="false" active-color="#F9F900"></u-rate>
 		</s-item>
-		<s-item title="志愿服务时长" :value="hours" />
+		<s-item title="志愿服务时长" :value="hours + '小时'" />
 	</view>
 </template>
 

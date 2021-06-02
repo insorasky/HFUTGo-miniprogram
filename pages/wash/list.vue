@@ -2,7 +2,7 @@
 	<view>
 		<u-tabs :is-scroll="false" :list="campus" :current="current_campus" @change="change_campus" />
 		<u-tabs :list="buildings" :current="current_building" @change="change_building" />
-		<s-list :empty="false" :full="true" other-height="300rpx" :cell-group="false">
+		<s-list :empty="false" :full="false" :cell-group="true">
 			<s-item
 				v-for="(machine, i) in machines"
 				:title="machine.name"
@@ -47,7 +47,7 @@
 			};
 		},
 		methods: {
-			change_campus(index){
+			change_campus(index, setBuilding = false){
 				this.current_campus = index
 				uni.setStorageSync('wash_campus', index)
 				let storageBuilding = uni.getStorageSync('wash_building')
@@ -55,7 +55,7 @@
 					this.buildings = data
 					this.current_building = 0
 					this.buildings.forEach((item, index, err) => {
-						if(item.name == storageBuilding){
+						if(setBuilding && item.name == storageBuilding){
 							this.current_building = index
 							console.log(item.name)
 						}
@@ -106,7 +106,7 @@
 					this.current_campus = res.data
 				}
 			})
-			this.change_campus(this.current_campus)
+			this.change_campus(this.current_campus, true)
 		}
 	}
 </script>

@@ -19,12 +19,12 @@
 			</view>
 			<view class="info">
 				<u-cell-item title="校园卡编号" :value="info.id" :arrow="false" />
-				<u-cell-item title="是否冻结" :value="info.freeze ? '已冻结' : '未冻结'" :arrow="false" />
-				<u-cell-item title="是否丢失" :value="info.lost ? '已丢失' : '未丢失'" />
+				<u-cell-item title="是否冻结" :value="info.freeze" :arrow="false" />
+				<u-cell-item title="是否丢失" :value="info.lost" @click="showLosePopup" />
 			</view>
 		</view>
 		<view class="details">
-			<s-list :empty="false" :cellGroup="false">
+			<s-list :empty="false" :cellGroup="true">
 				<u-cell-item
 					v-for="(item, i) in details"
 					:title="item.time"
@@ -37,7 +37,7 @@
 			</s-list>
 		</view>
 		<s-popup v-model="showDetail" title="交易详情">
-			<view>
+			<view v-if="currentDetailIndex != -1">
 				<u-cell-item title="交易时间" :value="details[currentDetailIndex]['time']" :arrow="false"></u-cell-item>
 				<u-cell-item title="交易类型" :value="details[currentDetailIndex]['type']" :arrow="false"></u-cell-item>
 				<u-cell-item title="交易地点" :value="details[currentDetailIndex]['place']" :arrow="false"></u-cell-item>
@@ -46,8 +46,10 @@
 				<u-cell-item title="备注" :value="details[currentDetailIndex]['info'] || '无备注'" :arrow="false"></u-cell-item>
 			</view>
 		</s-popup>
-		<s-popup v-model="showLose">
-			
+		<s-popup v-model="showLose" title="挂失">
+			<u-alert-tips bgColor="warning" title="警告：如果挂失，则必须到本校区网络中心或自助机上解除挂失！"></u-alert-tips>
+			<s-input placeholder="请输入校园卡六位数密码" v-model="password"></s-input>
+			<u-button type="primary" @click="setLose">确定挂失</u-button>
 		</s-popup>
 	</view>
 </template>
@@ -61,29 +63,21 @@
 					sum: '',
 					available: '',
 					waiting: '',
-					freeze: true,
-					lost: false
+					freeze: '',
+					lost: ''
 				},
-				details: [
-					{
-						"time": "加载中",
-						"type": "加载中",
-						"place": "加载中",
-						"consume": "加载中",
-						"balance": "加载中",
-						"info": ""
-					}
-				],
-				currentDetailIndex: 0,
+				details: [],
+				currentDetailIndex: -1,
 				currentPage: 1,
 				showLose: false,
 				showDetail: false,
-				loading: false,
+				loading: 'loading',
 				loadText: {
 					loadmore: '上拉或点击加载下一页',
 					loading: '在获取了在获取了',
 					nomore: '莫得了',
 				},
+				password: '',
 			};
 		},
 		methods: {
@@ -92,10 +86,48 @@
 				this.showDetail = true
 			},
 			showLosePopup(index){
+				if(this.info.lost != '正常'){
+					uni.showToast({
+						icon:'none',
+						title:'请到本校区网络中心或自助机解除挂失！'
+					})
+					return
+				}
 				this.showLose = true
 			},
 			loadMore(){
-				
+				if(this.loading == 'loadmore'){
+					this.loading = 'loading'
+					this.$request(`/card/details_past?page=${++this.currentPage}`).then(data => {
+						if(data.details.length){
+							for(const i in data.details)
+								this.details.push(data.details[i])
+							this.loading = 'loadmore'
+						}else{
+							this.loading = 'nomore'
+						}
+					})
+				}
+			},
+			setLose(){
+				uni.showLoading({
+					title: '正在挂失'
+				})
+				this.$request(`/card/lose?password=${this.password}`).then(data => {
+					uni.hideLoading()
+					uni.showToast({
+						title: '挂失成功！',
+						icon: 'success'
+					})
+					this.showLose = false
+					uni.startPullDownRefresh()
+				}).catch(err => {
+					uni.hideLoading()
+					uni.showToast({
+						title: '密码错误！',
+						icon: 'none'
+					})
+				})
 			}
 		},
 		onLoad(){
@@ -108,13 +140,12 @@
 					this.details = data.details
 					uni.hideLoading()
 					this.$request('/card/details_past?page=1').then(data => {
-						for(const item in data.details)
-							this.details.push(item)
+						for(const i in data.details)
+							this.details.push(data.details[i])
 						uni.stopPullDownRefresh()
+						this.loading = 'loadmore'
 					})
 				})
-			}).catch(err => {
-				
 			})
 		},
 		onReachBottom() {

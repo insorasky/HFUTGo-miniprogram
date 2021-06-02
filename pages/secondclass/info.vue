@@ -14,16 +14,19 @@
 			<u-cell-item title="活动开始时间" :arrow="false" :value="data['projectstart']" v-show="data['projectstart']"></u-cell-item>
 			<u-cell-item title="活动结束时间" :arrow="false" :value="data['projectend']" v-show="data['projectend']"></u-cell-item>
 			<u-cell-item title="活动地点" :arrow="false" :value="data['location']" v-show="data['location']"></u-cell-item>
-			<u-cell-item title="主办单位" :arrow="false" :value="data['sponsor'].replace(/,/g,'\n')" v-show="data['sponsor']"></u-cell-item>
-			<u-cell-item title="承办单位" :arrow="false" :value="data['organizer'].replace(/,/g,'\n')" v-show="data['organizer']"></u-cell-item>
+			<u-cell-item title="主办单位" :arrow="false" :value="data['sponsor']" v-show="data['sponsor']"></u-cell-item>
+			<u-cell-item title="承办单位" :arrow="false" :value="data['organizer']" v-show="data['organizer']"></u-cell-item>
 			<u-cell-item title="负责老师" :arrow="false" :value="data['teacher']" v-show="data['teacher']"></u-cell-item>
 			<u-cell-item title="联系电话" :value="data['phone']" v-show="data['phone']" @click="call"></u-cell-item>
 			<u-cell-item title="五育目标设计" :arrow="false" :value="data['goal']" v-show="data['goal']"></u-cell-item>
 			<u-cell-item title="报名方式" :arrow="false" :value="data['applyway']" v-show="data['applyway']"></u-cell-item>
-			<u-cell-item title="已报名数量" :arrow="false" :value="data['applynum'].toString()"></u-cell-item>
+			<u-cell-item title="已报名数量" :arrow="false" :value="data['applynum']"></u-cell-item>
 			<u-cell-item title="最高数量" :arrow="false" :value="data['fullnum']" v-show="data['fullnum']"></u-cell-item>
 			<u-cell-item title="团队最大人数" :arrow="false" :value="data['teamsize']" v-show="data['teamsize']"></u-cell-item>
 		</s-list>
+		<view class="content">
+			<rich-text space="nbsp" :nodes="data.content"></rich-text>
+		</view>
 	</view>
 </template>
 
@@ -35,15 +38,28 @@
 				id: '',
 			};
 		},
+		methods: {
+			call(){
+				uni.makePhoneCall({
+					phoneNumber: this.data['phone']
+				})
+			}
+		},
 		onLoad(data) {
 			this.id = data.id
-			this.$request('/sc/info?id=' + this.id).then(data => {
+			this.$request('/sc/info?pid=' + this.id).then(data => {
 				this.data = data
+				console.log(JSON.stringify(this.data))
 			})
 		}
 	}
 </script>
 
 <style lang="scss">
-
+.content{
+	margin: 20rpx;
+	padding: 30rpx;
+	border-radius: 20rpx;
+	background-color: #FFFFFF;
+}
 </style>

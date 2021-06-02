@@ -59,22 +59,28 @@ const user = {
 				uni.reLaunch({
 					url: '/pages/user/login'
 				})
-				resolve('未登录')
+				reject('未登录')
 			}
 		})
 	},
 	logout(){
-		userInfo.state.userInfo = {
-			hasLogin: false, //是否已登录
-			name: null, //姓名
-			id: null, //学工号
-			password: null, //密码
-			className: null, //班级
-			ticket: null, //VPN登录凭据
-			at: null, //信息门户at凭据
-			token: null, //小程序后台登录凭据
-		}
-		uni.removeStorageSync('userInfo')
+		request('/user/logout').then(data => {
+			userInfo.state.userInfo = {
+				hasLogin: false, //是否已登录
+				name: null, //姓名
+				id: null, //学工号
+				password: null, //密码
+				className: null, //班级
+				ticket: null, //VPN登录凭据
+				at: null, //信息门户at凭据
+				token: null, //小程序后台登录凭据
+			}
+			uni.removeStorageSync('userInfo')
+			uni.reLaunch({
+				url: '/pages/user/login.vue'
+			})
+		})
+		
 	},
 	getUserInfo(){
 		return userInfo.state.userInfo

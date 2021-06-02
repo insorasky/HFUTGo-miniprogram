@@ -1,9 +1,14 @@
 <template>
-	<view>
+	<view class="body">
 		<u-subsection :list="list" :current="currentType" @change="changeType" class="selector"></u-subsection>
-		<s-item :cell-group="true">
-			<u-cell-item v-for="(item, i) in data" :title="item.name"></u-cell-item>
-		</s-item>
+		<s-list :cell-group="true">
+			<u-cell-item
+				v-for="(item, i) in data"
+				:title="item.name"
+				:label="item.organizer"
+				@click="showInfo(i)"
+			></u-cell-item>
+		</s-list>
 		<u-loadmore :status="loadStatus"></u-loadmore>
 	</view>
 </template>
@@ -29,10 +34,15 @@
 				this.$request('/sc/list?page=1&type=' + this.list[index].type).then(data => {
 					this.data = data.data
 				})
+			},
+			showInfo(index){
+				uni.navigateTo({
+					url: '/pages/secondclass/info?id=' + this.data[index].id
+				})
 			}
 		},
 		onLoad() {
-			changeType(0)
+			this.changeType(0)
 		},
 		onReachBottom() {
 			if(this.loadStatus == 'loadmore'){
@@ -49,6 +59,9 @@
 
 <style lang="scss">
 	.selector{
+		margin: 20rpx;
+	}
+	.body{
 		margin: 20rpx;
 	}
 </style>

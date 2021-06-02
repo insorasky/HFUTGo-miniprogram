@@ -8,13 +8,13 @@
 			<view class="link">
 				<u-grid col="4" :border="false" v-show="today.balance">
 					<u-grid-item>
-						<u-icon name="rmb-circle" :label="today.balance" label-pos="bottom" size="80" label-size="30"></u-icon>
+						<u-icon name="rmb-circle" :label="today.balance" label-pos="bottom" size="80" label-size="30" @click="navigate('others/card')"></u-icon>
 					</u-grid-item>
 					<u-grid-item>
 						<u-icon name="email" :label="today.unread_email + '封未读'" label-pos="bottom" size="80" label-size="30"></u-icon>
 					</u-grid-item>
 					<u-grid-item>
-						<u-icon name="bookmark" :label="today.borrow_books + '本待还'" label-pos="bottom" size="80" label-size="30"></u-icon>
+						<u-icon name="bookmark" :label="today.borrow_books + '本待还'" label-pos="bottom" size="80" label-size="30" @click="navigate('library/mybooks')"></u-icon>
 					</u-grid-item>
 					<u-grid-item>
 						<u-icon name="bookmark" :label="today.subscribe_books + '本预约'" label-pos="bottom" size="80" label-size="30"></u-icon>
@@ -182,6 +182,13 @@
 			})
 			this.showLoading = false
 			console.log(this.showLoading)
+		},
+		methods: {
+			navigate(path){
+				uni.navigateTo({
+					url: '/pages/' + path
+				})
+			}
 		}
 	}
 </script>

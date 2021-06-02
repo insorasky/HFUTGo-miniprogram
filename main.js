@@ -30,9 +30,14 @@ import hfutgo from './common/func/hfutgo.js'
 Vue.prototype.$hfutgo = hfutgo
 Vue.config.productionTip = false
 
-App.mpType = 'app'
-
-const app = new Vue({
-    ...App
-})
-app.$mount()
+// 异步登录，先获取登录状态再进行其他操作
+const start = async () => {
+	await user.initialize()
+	App.mpType = 'app'
+	
+	const app = new Vue({
+	    ...App
+	})
+	app.$mount()
+}
+start()
