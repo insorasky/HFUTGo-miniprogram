@@ -1,7 +1,16 @@
 <script>
 export default {
 	onLaunch: function(){
+		new Promise((resolve, reject) => {
+			this.$user.initialize().then(data => {
+				resolve('success')
+			}).catch(err => {
+				reject('error')
+			})
+		})
 		console.log("initialized")
+		console.log(process.env.NODE_ENV)
+		console.log(uni.getSystemInfoSync().platform)
 		// 检查更新
 		if (wx.canIUse("getUpdateManager")) {
 			let updateManager = wx.getUpdateManager()

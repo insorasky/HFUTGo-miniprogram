@@ -1,7 +1,7 @@
 <template>
 	<view class="body">
 		<u-subsection :list="list" :current="currentType" @change="changeType" class="selector"></u-subsection>
-		<s-list :cell-group="true">
+		<s-list :cell-group="true" bg-color="#FFFFFF">
 			<u-cell-item
 				v-for="(item, i) in data"
 				:title="item.name"

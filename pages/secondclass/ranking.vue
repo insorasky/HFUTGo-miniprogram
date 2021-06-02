@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<u-subsection :list="list" :current="currentCategary" class="selector" @change="changeCategory"></u-subsection>
-		<s-list :cell-group="true">
+		<s-list :cell-group="true" bg-color="#FFFFFF">
 			<u-cell-item v-for="(item, i) in data" :key="i" :title="item.name" :value="`共${item.sum}分 共${item.hour}小时`" @click="showItem(i)" :label="item.clazz"></u-cell-item>
 		</s-list>
 		<s-popup v-if="currentItem != -1" :title="data[currentItem].name || ''" v-model="showPopup">

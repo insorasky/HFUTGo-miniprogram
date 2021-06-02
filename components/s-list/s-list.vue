@@ -1,6 +1,6 @@
 <template name="s-list">
 	<view class="list" :style="full ? 'height: calc(100vh - ' + otherHeight + ')' : ''">
-		<u-cell-group :border="border" v-show="cellGroup">
+		<u-cell-group :border="border" v-show="cellGroup" :bg-color="bgColor" :title="title">
 			<slot />
 		</u-cell-group>
 		<view v-show="!cellGroup">
@@ -46,6 +46,14 @@
 			cellGroup: {
 				type: Boolean,
 				default: true
+			},
+			bgColor: {
+				type: String,
+				default: ''
+			},
+			title: {
+				type: String,
+				default: ''
 			}
 		},
 		data() {

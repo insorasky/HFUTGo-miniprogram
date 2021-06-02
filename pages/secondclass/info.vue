@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<s-list :cell-group="true">
+		<s-list :cell-group="true" bg-color="#FFFFFF">
 			<u-cell-item :arrow="false" :title="data['name']" v-show="data['name']"></u-cell-item>
 			<u-cell-item title="项目模块" :arrow="false" :value="data['module']" v-show="data['module']"></u-cell-item>
 			<u-cell-item title="项目形式" :arrow="false" :value="data['form']" v-show="data['form']"></u-cell-item>

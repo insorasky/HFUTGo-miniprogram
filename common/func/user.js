@@ -30,6 +30,7 @@ const user = {
 	},
 	initialize(){
 		return new Promise((resolve, reject) => {
+			console.log('initialize')
 			let info = uni.getStorageSync('userInfo')
 			if(info){
 				if(info.id == ""){
