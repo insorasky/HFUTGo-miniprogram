@@ -23,6 +23,7 @@ export default {
 					content: '新版本已经准备好，是否重启应用？',
 					success: (res) => {
 						if (res.confirm) {
+							uni.setStorageSync('updating', true)
 							updateManager.applyUpdate()
 						} else if (res.cancel) {
 							return false

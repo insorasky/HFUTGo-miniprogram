@@ -6,6 +6,9 @@
 			<my v-show="current == 2" />
 		</view>
 		<u-tabbar v-model="current" :list="list" :mid-button="true" active-color="#4da0e0" :border-top="false"></u-tabbar>
+		<s-popup :title="`v${updateLog_[0].version} 更新日志`" v-model="showUpdate" mode="center">
+			<text>{{updateLog_[0].log}}</text>
+		</s-popup>
 	</view>
 </template>
 
@@ -22,7 +25,6 @@
 		},
 		data() {
 			return {
-				user: {},
 				current: 1,
 				list: [
 					{
@@ -45,15 +47,23 @@
 						isDot: false,
 						customIcon: false,
 					},
-				]
+				],
+				showUpdate: false,
+				updateLog_: updateLog
 			}
 		},
 		onLoad() {
-			this.user = this.$user.getUserInfo()
-			console.log(this.user.name)
+			this.loadUpdate()
 		},
 		methods: {
-
+			loadUpdate(){
+				let updating = uni.getStorageSync('updating')
+				console.log(updating)
+				if(updating){
+					this.showUpdate = true
+					uni.setStorageSync('updating', false)
+				}
+			}
 		}
 	}
 </script>

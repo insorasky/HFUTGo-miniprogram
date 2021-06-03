@@ -4,6 +4,7 @@
 			<u-cell-group :border="false">
 				<u-cell-item :arrow="false" :border-bottom="false">
 					<u-avatar slot="icon" />
+					<open-data type="userAvatarUrl" slot="icon"></open-data>
 					<view slot="title" style="padding-left: 30rpx;">
 						<text style="font-size: 40rpx;">{{userInfo.name}}</text><br />
 						<text style="font-size: 30rpx;">{{userInfo.className}}</text>
@@ -13,20 +14,31 @@
 		</view>
 		<view class="group">
 			<u-cell-group :border="false" title="设置">
-				<u-cell-item icon="home" title="聚合今日首页"></u-cell-item>
-				<u-cell-item icon="account" title="帐号密码"></u-cell-item>
-				<u-cell-item icon="calendar" title="课程表"></u-cell-item>
-				<u-cell-item icon="setting" title="其他设置" :border-bottom="false"></u-cell-item>
+				<u-cell-item icon="home" title="聚合今日首页" @click="coming()"></u-cell-item>
+				<u-cell-item icon="account" title="帐号密码" @click="coming()"></u-cell-item>
+				<u-cell-item icon="calendar" title="课程表" @click="coming()"></u-cell-item>
+				<u-cell-item icon="setting" title="其他设置" :border-bottom="false" @click="coming()"></u-cell-item>
 			</u-cell-group>
 		</view>
 		<view class="group">
 			<u-cell-group :border="false">
-				<u-cell-item icon="info-circle" title="关于小程序"></u-cell-item>
-				<u-cell-item icon="kefu-ermai" title="反馈"></u-cell-item>
+				<u-cell-item icon="info-circle" title="关于小程序" @click="showAbout = true"></u-cell-item>
+				<u-cell-item icon="kefu-ermai" title="反馈" @click="showContact = true"></u-cell-item>
 				<u-cell-item icon="close-circle" title="退出登录" :border-bottom="false" @click="logout"></u-cell-item>
 			</u-cell-group>
 		</view>
 		<text class="copyright">Sora 版权所有 ©2021</text>
+		<s-popup title="关于" v-model="showAbout" class="about">
+			<text>Sora 版权所有 ©2021</text><br />
+			<u-link href="https://www.sorasky.in/" :under-line="true" font-size="35">博客：https://www.sorasky.in/</u-link><br />
+			<u-link href="https://github.com/hfutgo-server/" :under-line="true" font-size="35">服务端开源地址：https://github.com/hfutgo-server/</u-link><br />
+			<u-link href="https://github.com/HFUTGo-miniprogram/" :under-line="true" font-size="35">小程序端开源地址：https://github.com/HFUTGo-miniprogram/</u-link><br />
+			<text>喜欢的话给个Star呗！</text>
+		</s-popup>
+		<s-popup title="反馈" v-model="showContact">
+			<u-button type="success" open-type="contact" style="margin-bottom: 20rpx;">点击联系作者微信</u-button>
+			<u-button @click="copyGroupNum()" type="primary">点击加入QQ交流群：862212085</u-button>
+		</s-popup>
 	</view>
 </template>
 
@@ -35,7 +47,9 @@
 		name:'my',
 		data() {
 			return {
-				userInfo: this.$user.getUserInfo()
+				userInfo: this.$user.getUserInfo(),
+				showAbout: false,
+				showContact: false,
 			};
 		},
 		methods:{
@@ -51,6 +65,20 @@
 							})
 						}
 					}
+				})
+			},
+			coming(){
+				uni.showToast({
+					icon: 'none',
+					title: '敬请期待！'
+				})
+			},
+			copyGroupNum(){
+				uni.setClipboardData({
+					data: '862212085'
+				})
+				uni.showToast({
+					title: '已复制群号'
 				})
 			}
 		}
@@ -72,5 +100,9 @@
 		display:flex;
 		flex-direction:row;
 		justify-content:center;
+	}
+	.about{
+		font-size: 35rpx;
+		line-height: 60rpx;
 	}
 </style>

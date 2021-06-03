@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import App from './App'
 
+/*
 // 引入lodash
 import _ from 'lodash'
 Vue.use(_)
+*/
 
 // 引入全局配置
 import cfg from './common/data/config.js'
