@@ -5,6 +5,8 @@
 				v-for="(item, i) in data"
 				:title="item.name"
 				:label="`起止时间：${item.starttime}~${item.endtime}`"
+				:key="i"
+				@click="showInfo(i)"
 			></u-cell-item>
 		</s-list>
 	</view>

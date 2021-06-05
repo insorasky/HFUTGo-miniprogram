@@ -1,16 +1,9 @@
 <script>
 export default {
 	onLaunch: function(){
-		new Promise((resolve, reject) => {
-			this.$user.initialize().then(data => {
-				resolve('success')
-			}).catch(err => {
-				reject('error')
-			})
-		})
-		console.log("initialized")
 		console.log(process.env.NODE_ENV)
 		console.log(uni.getSystemInfoSync().platform)
+		console.log(this.$cfg.baseurl)
 		// 检查更新
 		if (wx.canIUse("getUpdateManager")) {
 			let updateManager = wx.getUpdateManager()
@@ -48,6 +41,6 @@ export default {
 	@import 'uview-ui/index.scss';
 	@import 'static/global.scss';
 	page{
-		background-color: #F1F1F1;
+		background-color: #F7F7F7;
 	}
 </style>

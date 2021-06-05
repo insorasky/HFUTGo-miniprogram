@@ -1,8 +1,8 @@
 const config = {
-	baseurl: process.env.NODE_ENV == 'development' ? 'http://127.0.0.1:8000' : 'https://hfutnew.heppy.wang',
+	baseurl: process.env.NODE_ENV == 'development' ? 'http://127.0.0.1:8000' : 'https://hfut-new.heppy.wang',
 	defaultSemester: '134',
 	theme_color: '#4da0e0',
-	background_color: '#F1F1F1',
+	background_color: '#F7F7F7',
 	rand_color: [
 		'#AFEEEE',
 		'#DBF1E1',

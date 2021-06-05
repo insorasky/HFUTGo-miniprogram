@@ -46,7 +46,7 @@
 	.item{
 		margin-top: 30rpx;
 		margin-bottom: 30rpx;
-		background-color: #F1F1F1;
+		background-color: #FFFFFF;
 		border-radius: 10px;
 	}
 	.input{

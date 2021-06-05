@@ -48,7 +48,7 @@
 		</s-popup>
 		<s-popup v-model="showLose" title="挂失">
 			<u-alert-tips bgColor="warning" title="警告：如果挂失，则必须到本校区网络中心或自助机上解除挂失！"></u-alert-tips>
-			<s-input placeholder="请输入校园卡六位数密码" v-model="password"></s-input>
+			<s-input placeholder="请输入校园卡六位数密码" v-model="password" :password="true"></s-input>
 			<u-button type="primary" @click="setLose">确定挂失</u-button>
 		</s-popup>
 	</view>
@@ -164,7 +164,7 @@
 		border-radius: 25rpx;
 		border-style: solid;
 		border-color: #C0C0C0;
-		margin: 50rpx;
+		margin: 30rpx;
 	}
 	.left{
 		border-right: 1px solid #C0C0C0;

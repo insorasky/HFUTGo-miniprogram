@@ -12,7 +12,7 @@
 		</view>
 		<s-list :empty="data.length == 0 && currentPage != -1" bg-color="#FFFFFF">
 			<u-cell-item v-for="(item, i) in data" :title="item.title" @click="showInfo(i)"
-				:label="`${item.author} ${item.publisher}`"
+				:label="`${item.author} ${item.publisher}`" :key="i"
 			></u-cell-item>
 		</s-list>
 		<u-loadmore v-show="currentPage != -1 && data.length != 0" :status="loading"></u-loadmore>

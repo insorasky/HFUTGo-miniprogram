@@ -91,6 +91,7 @@
 					<u-cell-item v-for="(project, i) in scProjects" :title="project.name" :label="project.organizer" @click="" :border-bottom="false" :key="i"></u-cell-item>
 				</s-list>
 			</view>
+			<!--
 			<view class="news" v-show="false">
 				<view class="title">
 					<text>校园要闻</text>
@@ -102,6 +103,7 @@
 					<u-cell-item title="教务系统切换通知" :border-bottom="false"></u-cell-item>
 				</s-list>
 			</view>
+			-->
 		</view>
 	</view>
 </template>
@@ -157,31 +159,36 @@
 		},
 		beforeCreate() {
 			let that = this
-			let day = new Date().getDay()
-			this.$request('/user/today').then(data => {
-				that.today = data
-			})
-			this.$request('/eduadmin/login').then(data => {
-				schedule.getDay().then(data => {
-					for(const item of data){
-						for(const i of item.schedules){
-							for(const n of [...new Array(5).keys()]){
-								if(i.day == day && (i['class'].includes(2 * n + 1) || i['class'].includes(2 * n + 2))){
-									this.lessons[n].name = item.name
-									this.lessons[n].room = i.room
-									this.lessons[n].color = this.$hfutgo.randColor()
-									break
+			this.$user.initialize().then(data => {
+				console.log("initialized")
+				let day = new Date().getDay()
+				this.$request('/user/today').then(data => {
+					that.today = data
+				})
+				this.$request('/eduadmin/login').then(data => {
+					schedule.getDay().then(data => {
+						for(const item of data){
+							for(const i of item.schedules){
+								for(const n of [...new Array(5).keys()]){
+									if(i.day == day && (i['class'].includes(2 * n + 1) || i['class'].includes(2 * n + 2))){
+										this.lessons[n].name = item.name
+										this.lessons[n].room = i.room
+										this.lessons[n].color = this.$hfutgo.randColor()
+										break
+									}
 								}
 							}
 						}
-					}
+					})
 				})
+				this.$request('/sc/my_projects?type=waiting').then(data => {
+					this.scProjects = data
+				})
+				this.showLoading = false
+				console.log(this.showLoading)
+			}).catch(err => {
+				reject('error')
 			})
-			this.$request('/sc/my_projects?type=waiting').then(data => {
-				this.scProjects = data
-			})
-			this.showLoading = false
-			console.log(this.showLoading)
 		},
 		methods: {
 			navigate(path){

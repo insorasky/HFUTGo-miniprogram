@@ -2,7 +2,7 @@
 	<view class="body">
 		<view class="group">
 			<s-list :cell-group="true" title="图书信息" bg-color="#FFFFFF">
-				<u-cell-item v-for="(item, i) in data.info" :title="item.title" :value="item.value" :arrow="false"></u-cell-item>
+				<u-cell-item v-for="(item, i) in data.info" :title="item.title" :value="item.value" :arrow="false" :key="i"></u-cell-item>
 			</s-list>
 		</view>
 		<view class="group" v-show="data.content != ''">

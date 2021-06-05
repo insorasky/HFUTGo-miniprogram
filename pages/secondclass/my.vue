@@ -2,7 +2,7 @@
 	<view>
 		<u-subsection :list="list" :current="currentType" class="selector" @change="changeType"></u-subsection>
 		<s-list :empty="data.length == 0" :cell-group="true" bg-color="#FFFFFF">
-			<u-cell-item v-for="(item, i) in data" :title="item.name" :label="item.organizer" @click="selectItem(i)"></u-cell-item>
+			<u-cell-item v-for="(item, i) in data" :key="i" :title="item.name" :label="item.organizer" @click="selectItem(i)"></u-cell-item>
 		</s-list>
 	</view>
 </template>

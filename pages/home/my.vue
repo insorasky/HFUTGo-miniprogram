@@ -3,8 +3,14 @@
 		<view class="group">
 			<u-cell-group :border="false">
 				<u-cell-item :arrow="false" :border-bottom="false">
-					<u-avatar slot="icon" />
-					<open-data type="userAvatarUrl" slot="icon"></open-data>
+					<view class="avatar" slot="icon">
+						<view v-if="debug">
+							<image src="../../static/img/avatar_default.jpg" class="avatarimg" mode='widthFix'></image>
+						</view>
+						<view v-else>
+							<open-data type="userAvatarUrl" slot="icon" class="avatarimg"></open-data>
+						</view>
+					</view>
 					<view slot="title" style="padding-left: 30rpx;">
 						<text style="font-size: 40rpx;">{{userInfo.name}}</text><br />
 						<text style="font-size: 30rpx;">{{userInfo.className}}</text>
@@ -50,6 +56,7 @@
 				userInfo: this.$user.getUserInfo(),
 				showAbout: false,
 				showContact: false,
+				debug: (process.env.NODE_ENV == 'development')
 			};
 		},
 		methods:{
@@ -104,5 +111,14 @@
 	.about{
 		font-size: 35rpx;
 		line-height: 60rpx;
+	}
+	.avatar{
+		height: 120rpx;
+		width: 120rpx;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+	.avatarimg{
+		width: 100%;
 	}
 </style>

@@ -6,6 +6,7 @@
 				v-for="(item, i) in data"
 				:title="item.name"
 				:label="item.organizer"
+				:key="i"
 				@click="showInfo(i)"
 			></u-cell-item>
 		</s-list>
