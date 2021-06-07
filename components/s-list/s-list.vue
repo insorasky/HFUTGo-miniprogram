@@ -8,7 +8,7 @@
 		</view>
 		<view class="parent">
 			<u-empty
-				:show="empty"
+				v-if="empty"
 				text="是空的诶o(╥﹏╥)o"
 				:mode="mode"
 				:class="full ? 'full_empty' : ''" margin-top="30rpx"

@@ -83,7 +83,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="secondclass">
+			
+			<view class="secondclass" v-if="false">
 				<view class="title">
 					<text>第二课堂</text>
 				</view>
@@ -91,8 +92,7 @@
 					<u-cell-item v-for="(project, i) in scProjects" :title="project.name" :label="project.organizer" @click="" :border-bottom="false" :key="i"></u-cell-item>
 				</s-list>
 			</view>
-			<!--
-			<view class="news" v-show="false">
+			<view class="news" v-if="false">
 				<view class="title">
 					<text>校园要闻</text>
 				</view>
@@ -103,7 +103,7 @@
 					<u-cell-item title="教务系统切换通知" :border-bottom="false"></u-cell-item>
 				</s-list>
 			</view>
-			-->
+			
 		</view>
 	</view>
 </template>
@@ -181,9 +181,11 @@
 						}
 					})
 				})
+				/*
 				this.$request('/sc/my_projects?type=waiting').then(data => {
 					this.scProjects = data
-				})
+				})*/
+				
 				this.showLoading = false
 				console.log(this.showLoading)
 			}).catch(err => {

@@ -142,6 +142,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/user/reset",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "重置密码",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

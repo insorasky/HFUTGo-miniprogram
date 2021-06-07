@@ -3,12 +3,12 @@ import request from '../request/request.js'
 import eduadmin from './eduadmin.js'
 
 const user = {
-	login: function(id, password){
+	login: function(id, password, showToast=true){
 		return new Promise((resolve, reject) => {
 			request('/user/login', 'GET', {
 				'id': id,
 				'password': password
-			}).then(data => {
+			}, null, showToast).then(data => {
 				if(data){
 					userInfo.state.userInfo.hasLogin = true
 					userInfo.state.userInfo.name = data.name

@@ -1,5 +1,6 @@
 <template>
 	<view class="body">
+		<u-top-tips ref="uTips"></u-top-tips>
 		<s-notice page="login" />
 		<view class="title">
 			<text>登录</text>
@@ -46,10 +47,35 @@
 		},
 		methods: {
 			login(){
-				this.$user.login(this.id, this.password).then(data => {
+				if(!this.id || !this.password){
+					this.$refs.uTips.show({
+						title: '请输入帐号密码！'
+					})
+					return
+				}
+				uni.showLoading({
+					title: '拼命登录中',
+					mask: true
+				})
+				this.$user.login(this.id, this.password, false).then(data => {
 					uni.reLaunch({
 						url:'/pages/index'
 					})
+				}).catch(err => {
+					uni.hideLoading()
+					console.log(err.status == 3303)
+					if(err.status == 3301)
+						this.$refs.uTips.show({
+							title: '请先访问新信息门户设置邮箱和手机！'
+						})
+					else if(err.status == 3303)
+						this.$refs.uTips.show({
+							title: '密码错误'
+						})
+					else
+						this.$refs.uTips.show({
+							title: '未知错误：' + err.error
+						})
 				})
 			}
 		},

@@ -67,6 +67,7 @@
 				</u-grid-item>
 			</u-grid>
 		</view>
+		<!--
 		<view class="group">
 			<view class="title">
 				<text>第二课堂</text>
@@ -86,6 +87,7 @@
 				</u-grid-item>
 			</u-grid>
 		</view>
+		-->
 		<view class="group" v-if="showDev">
 			<view class="title">
 				<u-icon style="float: left" name="warning" :size="50" label="开发者模式" label-size="35" margin-left="15" />

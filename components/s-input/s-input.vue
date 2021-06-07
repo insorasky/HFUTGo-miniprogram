@@ -1,5 +1,5 @@
 <template name="s-input">
-	<view class="item">
+	<view class="item" :style="`background-color: ${bgColor}`">
 		<view class="input">
 			<input :placeholder="placeholder" v-model="content" :password="password" />
 		</view>
@@ -26,6 +26,10 @@
 			password: {
 				type: Boolean,
 				default: false
+			},
+			bgColor: {
+				type: String,
+				default: '#FFFFFF'
 			}
 		},
 		watch:{
@@ -46,7 +50,6 @@
 	.item{
 		margin-top: 30rpx;
 		margin-bottom: 30rpx;
-		background-color: #FFFFFF;
 		border-radius: 10px;
 	}
 	.input{

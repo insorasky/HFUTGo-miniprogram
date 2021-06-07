@@ -1,7 +1,7 @@
 import userInfo from '../store/userinfo.js'
 import cfg from '../data/config.js'
 
-const request = function(url, method='GET', showToast=true, params=null, json=null){
+const request = function(url, method='GET', params=null, json=null, showToast=true, tipRef=null){
 	console.log(url)
 	url = cfg.baseurl + url
 	let header = {}
@@ -27,19 +27,29 @@ const request = function(url, method='GET', showToast=true, params=null, json=nu
 					resolve(res.data.data)
 				}else{
 					if(showToast)
-						uni.showToast({
-							title: res.data.error + '(' + res.data.status + ')',
-							icon: 'none'
-						})
+						if(tipRef)
+							tipRef.show({
+								title: res.data.error + '(' + res.data.status + ')'
+							})
+						else
+							uni.showToast({
+								title: res.data.error + '(' + res.data.status + ')',
+								icon: 'none'
+							})
 					reject(res.data)
 				}
 			},
 			fail: (err) => {
 				if(showToast)
-					uni.showToast({
-						title: '请求失败',
-						icon: 'none'
-					})
+					if(tipRef)
+						tipRef.show({
+							title: res.data.error + '(' + res.data.status + ')'
+						})
+					else
+						uni.showToast({
+							title: '请求失败',
+							icon: 'none'
+						})
 				reject(err)
 			},
 			complete: () => {
