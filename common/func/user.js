@@ -34,10 +34,7 @@ const user = {
 			let info = uni.getStorageSync('userInfo')
 			if(info){
 				if(info.id == ""){
-					uni.reLaunch({
-						url: '/pages/user/login'
-					})
-					reject('未登录')
+					reject('not_login')
 				}
 				info.hasLogin = false
 				userInfo.commit('setAll', info)
@@ -46,21 +43,11 @@ const user = {
 					resolve('登陆成功')
 				}).catch(err => {
 					if(err.status == 3303){
-						uni.showToast({
-							icon: 'none',
-							title: '密码错误！'
-						})
-						uni.reLaunch({
-							url: '/pages/user/login'
-						})
-						resolve('密码错误')
+						resolve('password_wrong')
 					}
 				})
 			}else{
-				uni.reLaunch({
-					url: '/pages/user/login'
-				})
-				reject('未登录')
+				reject('not_login')
 			}
 		})
 	},

@@ -14,9 +14,14 @@
 			<u-button type="primary" shape="circle" :ripple="true" @click="login">登录</u-button>
 		</view>
 		<view
+			style="margin-top: 50rpx; color: #007AFF; float: left;"
+			@click="goForgot">
+			<text>重置密码</text>
+		</view>
+		<view
 			style="margin-top: 50rpx; color: #007AFF; float: right;"
 			@click="showHelp = true">
-			<text>忘记密码/密码正确仍无法登录？</text>
+			<text>密码正确仍无法登录？</text>
 		</view>
 		<s-popup title="无法登录？" v-model="showHelp">
 			<text class="subtitle">密码正确却无法登录？</text>
@@ -25,7 +30,7 @@
 			</view>
 			<text class="subtitle">我忘记了密码？</text>
 			<view class="tipbody">
-				<text>默认密码为身份证号后六位。如果您修改过密码，请登录信息门户或前往本校区信息化中心重置密码。</text>
+				<text>默认密码为身份证号后六位。如果您修改过密码，请点击左侧忘记密码、登录信息门户或前往本校区信息化中心重置密码。</text>
 			</view>
 			<text class="subtitle">还是无法登录？</text>
 			<view class="tipbody">
@@ -76,6 +81,11 @@
 						this.$refs.uTips.show({
 							title: '未知错误：' + err.error
 						})
+				})
+			},
+			goForgot(){
+				uni.navigateTo({
+					url: '/pages/user/reset'
 				})
 			}
 		},

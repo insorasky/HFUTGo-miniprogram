@@ -5,17 +5,17 @@ const schedule = {
 	getSemesters(){
 		return request('/eduadmin/schedule/semesters')
 	},
-	getAll(semester = null){
+	getAll(semester = null, showToast = false){
 		semester = semester || config.defaultSemester
 		return request('/eduadmin/schedule/schedules', 'GET', {
 			'sid': semester
-		})
+		}, null, showToast)
 	},
 	getWeek(semester = null, week = null){
 		return new Promise((resolve, reject) => {
 			var result = []
 			semester = semester || config.defaultSemester
-			this.getAll().then(data => {
+			this.getAll(semester).then(data => {
 				console.log(data)
 				week = week || data.current_week
 				data.lessons.forEach((item, index, err) => {
@@ -33,12 +33,12 @@ const schedule = {
 			})
 		})
 	},
-	getDay(semester = null, week = null, day = null){
+	getDay(semester = null, week = null, day = null, showToast = false){
 		return new Promise((resolve, reject) => {
 			var result = []
 			semester = semester || config.defaultSemester
 			day = day || new Date().getDay()
-			this.getAll().then(data => {
+			this.getAll(semester, showToast).then(data => {
 				week = week || data.current_week
 				for(const item of data.lessons){
 					for(const i of item.schedules){

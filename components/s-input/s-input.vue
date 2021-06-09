@@ -1,5 +1,5 @@
 <template name="s-input">
-	<view class="item" :style="`background-color: ${bgColor}`">
+	<view class="item" :style="'background-color:' + bgColor">
 		<view class="input">
 			<input :placeholder="placeholder" v-model="content" :password="password" />
 		</view>

@@ -8,7 +8,9 @@
 			"path": "pages/index",
 			"style": {
 				"navigationBarTitleText": "HFUTGo",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "white"
 			}
 		}
         ,{

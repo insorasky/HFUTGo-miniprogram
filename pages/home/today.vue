@@ -1,23 +1,20 @@
 <template name="today">
 	<view>
-		<view v-show="!today.balance" class="loading">
-			<u-loading mode="circle" :color="$cfg.theme_color" size="40"></u-loading>
-		</view>
 		<s-notice page="home" />
 		<view>
 			<view class="link">
-				<u-grid col="4" :border="false" v-show="today.balance">
+				<u-grid col="4" :border="false">
 					<u-grid-item>
-						<u-icon name="rmb-circle" :label="today.balance" label-pos="bottom" size="80" label-size="30" @click="navigate('others/card')"></u-icon>
+						<u-icon name="rmb-circle" :label="balance" label-pos="bottom" size="80" label-size="30" @click="navigate('others/card')"></u-icon>
 					</u-grid-item>
 					<u-grid-item>
-						<u-icon name="email" :label="today.unread_email + '封未读'" label-pos="bottom" size="80" label-size="30"></u-icon>
+						<u-icon name="email" :label="unread_email + '封未读'" label-pos="bottom" size="80" label-size="30"></u-icon>
 					</u-grid-item>
 					<u-grid-item>
-						<u-icon name="bookmark" :label="today.borrow_books + '本待还'" label-pos="bottom" size="80" label-size="30" @click="navigate('library/mybooks')"></u-icon>
+						<u-icon name="bookmark" :label="borrow_books + '本待还'" label-pos="bottom" size="80" label-size="30" @click="navigate('library/mybooks')"></u-icon>
 					</u-grid-item>
 					<u-grid-item>
-						<u-icon name="bookmark" :label="today.subscribe_books + '本预约'" label-pos="bottom" size="80" label-size="30"></u-icon>
+						<u-icon name="bookmark" :label="subscribe_books + '本预约'" label-pos="bottom" size="80" label-size="30"></u-icon>
 					</u-grid-item>
 				</u-grid>
 			</view>
@@ -120,13 +117,10 @@
 		},
 		data() {
 			return {
-				today: {
-					balance: '',
-					subscribe_books: 0,
-					borrow_books: 0,
-					unread_email: 0
-				},
-				showLoading: true,
+				balance: '',
+				subscribe_books: 0,
+				borrow_books: 0,
+				unread_email: 0,
 				lessons: [
 					{
 						color: this.$cfg.default_color,
@@ -154,19 +148,40 @@
 						room: ''
 					}
 				],
-				scProjects: []
+				scProjects: [],
+				stopLoading: 0
 			};
 		},
 		beforeCreate() {
 			let that = this
+			this.$emit('input', true)
 			this.$user.initialize().then(data => {
 				console.log("initialized")
 				let day = new Date().getDay()
-				this.$request('/user/today').then(data => {
+				/*
+				this.$request('/user/today', 'GET', null, null, false).then(data => {
 					that.today = data
+					this.stopLoading++;
 				})
-				this.$request('/eduadmin/login').then(data => {
-					schedule.getDay().then(data => {
+				*/
+				this.$request('/user/today_page/balance', null, null, false).then(data => {
+					this.balance = data.balance
+					this.stopLoading++;
+				})
+				this.$request('/user/today_page/borrow', null, null, false).then(data => {
+					this.borrow_books = data.borrow_books
+					this.stopLoading++;
+				})
+				this.$request('/user/today_page/subscribe', null, null, false).then(data => {
+					this.subscribe_books = data.subscribe_books
+					this.stopLoading++;
+				})
+				this.$request('/user/today_page/email', null, null, false).then(data => {
+					this.unread_email = data.unread_email
+					this.stopLoading++;
+				})
+				this.$request('/eduadmin/login', 'GET', null, null, false).then(data => {
+					schedule.getDay(null, false).then(data => {
 						for(const item of data){
 							for(const i of item.schedules){
 								for(const n of [...new Array(5).keys()]){
@@ -179,17 +194,25 @@
 								}
 							}
 						}
+						this.stopLoading++;
 					})
 				})
 				/*
 				this.$request('/sc/my_projects?type=waiting').then(data => {
 					this.scProjects = data
 				})*/
-				
-				this.showLoading = false
-				console.log(this.showLoading)
 			}).catch(err => {
-				reject('error')
+				switch(err){
+					case 'password_error':
+						uni.showToast({
+							title: '密码错误',
+							icon: 'none'
+						})
+					default:
+						uni.reLaunch({
+							url: '/pages/user/login'
+						})
+				}
 			})
 		},
 		methods: {
@@ -197,6 +220,18 @@
 				uni.navigateTo({
 					url: '/pages/' + path
 				})
+			}
+		},
+		props: {
+			value: {
+				type: Boolean,
+				default: true
+			}
+		},
+		watch: {
+			stopLoading(newVal){
+				console.log('stopLoading' + newVal)
+				if(newVal == 5) this.$emit('input', false)
 			}
 		}
 	}
@@ -245,9 +280,5 @@
 		background-color: #FFFFFF;
 		border-radius: 30rpx;
 		padding: 15rpx;
-	}
-	.loading{
-		margin: 18rpx;
-		float: left;
 	}
 </style>
