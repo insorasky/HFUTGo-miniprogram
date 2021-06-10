@@ -23,7 +23,7 @@
 				<u-cell-item icon="home" title="聚合今日首页" @click="coming()"></u-cell-item>
 				<u-cell-item icon="account" title="帐号密码" @click="coming()"></u-cell-item>
 				<u-cell-item icon="calendar" title="课程表" @click="coming()"></u-cell-item>
-				<u-cell-item icon="setting" title="其他设置" :border-bottom="false" @click="coming()"></u-cell-item>
+				<u-cell-item icon="setting" title="其他设置" :border-bottom="false" @click="showOtherSettings = true"></u-cell-item>
 			</u-cell-group>
 		</view>
 		<view class="group">
@@ -42,8 +42,22 @@
 			<text>喜欢的话给个Star呗！</text>
 		</s-popup>
 		<s-popup title="反馈" v-model="showContact">
-			<u-button type="success" open-type="contact" style="margin-bottom: 20rpx;">点击联系作者微信</u-button>
-			<u-button @click="copyGroupNum()" type="primary">点击加入QQ交流群：862212085</u-button>
+			<view style="margin-bottom: 20rpx;">
+				<u-button type="success" open-type="contact">点击联系作者微信</u-button>
+			</view>
+			<view>
+				<u-button @click="copyGroupNum()" type="primary">点击加入QQ交流群：862212085</u-button>
+			</view>
+		</s-popup>
+		<s-popup title="设置" v-model="showOtherSettings">
+			<u-cell-group>
+				<u-cell-item
+					title="重置本地缓存并重启小程序"
+					@click="resetAll"
+					label="仅限出现未知bug时尝试,谨慎使用!"
+					:title-style="{color: '#FF0000'}"
+				></u-cell-item>
+			</u-cell-group>
 		</s-popup>
 	</view>
 </template>
@@ -56,6 +70,7 @@
 				userInfo: this.$user.getUserInfo(),
 				showAbout: false,
 				showContact: false,
+				showOtherSettings: false,
 				debug: (process.env.NODE_ENV == 'development')
 			};
 		},
@@ -86,6 +101,21 @@
 				})
 				uni.showToast({
 					title: '已复制群号'
+				})
+			},
+			resetAll(){
+				uni.showModal({
+					title: '确定要重置所有数据？',
+					content: '所有数据（密码、个人偏好等）将被删除，不可找回！',
+					success: (res) => {
+						if(res.confirm){
+							uni.clearStorageSync()
+							this.$user.reset()
+							uni.reLaunch({
+								url: '/pages/user/login'
+							})
+						}
+					}
 				})
 			}
 		}

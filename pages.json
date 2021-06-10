@@ -7,10 +7,9 @@
 		{
 			"path": "pages/index",
 			"style": {
-				"navigationBarTitleText": "HFUTGo",
-                "enablePullDownRefresh": false,
+				"enablePullDownRefresh": false,
 				"navigationStyle": "custom",
-				"navigationBarTextStyle": "white"
+				"navigationBarTextStyle": "black"
 			}
 		}
         ,{
@@ -153,9 +152,27 @@
             }
             
         }
+        ,{
+            "path" : "pages/eduadmin/exam",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "考试安排",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/eduadmin/room",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "空教室查询",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
+		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "HFUTGo",
 		"navigationBarBackgroundColor": "#4da0e0",
 		"backgroundColor": "#4da0e0"

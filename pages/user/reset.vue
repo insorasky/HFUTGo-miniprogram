@@ -1,47 +1,55 @@
 <template>
-	<view class="body">
+	<view>
 		<u-top-tips ref="uTips"></u-top-tips>
-		<u-steps :list="list" :current="currentStep" mode="number" class="steps"></u-steps>
-		<view v-if="currentStep == 0" class="form">
-			<s-input placeholder="请输入要找回的学工号" v-model="id"></s-input>
-			<view class="item">
-				<view class="title">
-					<text>请选择找回方式：</text>
+		<view class="body">
+			<u-steps :list="list" :current="currentStep" mode="number" class="steps"></u-steps>
+			<view v-if="currentStep == 0" class="form">
+				<s-input placeholder="请输入要找回的学工号" v-model="id"></s-input>
+				<view class="item">
+					<view class="title">
+						<text>请选择找回方式：</text>
+					</view>
+					<u-radio-group v-model="method">
+						<u-radio name="phone">手机</u-radio>
+						<u-radio name="mail">邮箱</u-radio>
+					</u-radio-group>
 				</view>
-				<u-radio-group v-model="method">
-					<u-radio name="phone">手机</u-radio>
-					<u-radio name="mail">邮箱</u-radio>
-				</u-radio-group>
+				<u-row gutter="16">
+					<u-col span="8">
+						<s-input placeholder="请输入验证码" v-model="captcha"></s-input>
+					</u-col>
+					<u-col span="4">
+						<u-image :src="captchaImage" mode="aspectFit" height="98" @click="newSession"></u-image>
+					</u-col>
+				</u-row>
+				<u-button @tap="getCode" type="primary" @click="getCode">获取验证码</u-button>
 			</view>
-			<u-row gutter="16">
-				<u-col span="8">
-					<s-input placeholder="请输入验证码" v-model="captcha"></s-input>
-				</u-col>
-				<u-col span="4">
-					<u-image :src="captchaImage" mode="aspectFit" height="100" @click="newSession"></u-image>
-				</u-col>
-			</u-row>
-			<u-button @tap="getCode" type="primary" @click="getCode">获取验证码</u-button>
-		</view>
-		<view v-else-if="currentStep == 1" class="form">
-			<s-input placeholder="请输入您收到的验证码" v-model="code"></s-input>
-			<u-button @tap="verifyCode" type="success" @click="verifyCode" :disabled="code == ''">提交验证码</u-button>
-			<u-verification-code
-				:seconds="60"
-				@change="codeTimeChange"
-				ref="uCode"
-				start-text="没收到？重新获取"
-				change-text="x秒后重新获取"
-				end-text="没收到？重新获取"
-			></u-verification-code>
-			<u-button @tap="newCode" type="primary" @click="newCode" style="margin-top: 30rpx;" :plain="codeTip != '没收到？重新获取'" :disabled="codeTip != '没收到？重新获取'">{{codeTip}}</u-button>
-			<u-button @tap="goStep(0)" @click="goStep(0)" style="margin-top: 30rpx;">返回上一步</u-button>
-		</view>
-		<view v-else-if="currentStep == 2" class="form">
-			<s-input v-model="password" placeholder="请输入新密码" :password="true"></s-input>
-			<s-input v-model="password2" placeholder="请再次输入新密码" :password="true"></s-input>
-			<u-alert-tips type="error" v-show="password != password2" title="两次密码不相同"></u-alert-tips>
-			<u-button @click="setPassword" :disabled="(password != password2) || (password == '') || (password2 == '')" style="margin-top: 30rpx;">重置密码</u-button>
+			<view v-else-if="currentStep == 1" class="form">
+				<s-input placeholder="请输入您收到的验证码" v-model="code"></s-input>
+				<u-button @tap="verifyCode" type="success" @click="verifyCode" :disabled="code == ''">提交验证码</u-button>
+				<u-verification-code
+					:seconds="60"
+					@change="codeTimeChange"
+					ref="uCode"
+					start-text="没收到？重新获取"
+					change-text="x秒后重新获取"
+					end-text="没收到？重新获取"
+				></u-verification-code>
+				<view style="margin-top: 30rpx;">
+					<u-button @tap="newCode" type="primary" @click="newCode" :plain="codeTip != '没收到？重新获取'" :disabled="codeTip != '没收到？重新获取'">{{codeTip}}</u-button>
+				</view>
+				<view style="margin-top: 30rpx;">
+					<u-button @tap="goStep(0)" @click="goStep(0)" style="margin-top: 30rpx;">返回上一步</u-button>
+				</view>
+			</view>
+			<view v-else-if="currentStep == 2" class="form">
+				<s-input v-model="password" placeholder="请输入新密码" :password="true"></s-input>
+				<s-input v-model="password2" placeholder="请再次输入新密码" :password="true"></s-input>
+				<u-alert-tips type="error" v-show="password != password2" title="两次密码不相同"></u-alert-tips>
+				<view style="margin-top: 30rpx;">
+					<u-button @click="setPassword" :disabled="(password != password2) || (password == '') || (password2 == '')">重置密码</u-button>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -81,7 +89,10 @@
 					this.currentStep = 1
 					this.$refs.uCode.start()
 				}).catch(err => {
-					this.$refs.uTips.show(err.error)
+					this.$refs.uTips.show({
+						title: err.error,
+						type: 'warning'
+					})
 				})
 			},
 			newSession(){
@@ -100,7 +111,10 @@
 					this.boss_ticket = data.boss_ticket
 					this.currentStep = 2
 				}).catch(err => {
-					this.$refs.uTips.show(err.error)
+					this.$refs.uTips.show({
+						title: err.error,
+						type: 'warning'
+					})
 				})
 			},
 			goStep(index){
@@ -119,7 +133,9 @@
 					'password': this.password,
 					'vpn_ticket': this.ticket
 				}).then(data => {
-					this.$refs.uTips.show('修改成功')
+					this.$refs.uTips.show({
+						title: '修改成功',
+					})
 					setInterval(() => {
 						uni.navigateBack()
 					}, 2000)

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-navbar :is-back="false" title="" :background="{backgroundColor: $cfg.background_color}" :border-bottom="false">
+		<u-navbar :is-back="false" title="" :show-title="false" :background="{backgroundColor: $cfg.background_color}" :border-bottom="false">
 			<text class="nav-item">HFUTGo</text>
 			<u-loading mode="circle" class="nav-item" :color="$cfg.theme_color" size="40" :show="showLoading"></u-loading>
 		</u-navbar>

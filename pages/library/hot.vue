@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<u-subsection :list="list" class="selector" :current="currentType" @change="changeType"></u-subsection>
+		<view class="selector">
+			<u-subsection :list="list" :current="currentType" @change="changeType"></u-subsection>
+		</view>
 		<s-list :cell-group="true" bg-color="#FFFFFF">
 			<u-cell-item v-for="(item, i) in data[list[currentType].type]" :title="item.title" :key="i" @click="showBook(i)"></u-cell-item>
 		</s-list>

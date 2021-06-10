@@ -26,6 +26,18 @@ const store = new Vuex.Store({
 			state.userInfo.at = payload.at
 			state.userInfo.token = payload.token
 			uni.setStorageSync('userInfo', state.userInfo)
+		},
+		reset(state, payload){
+			state.userInfo = {
+				hasLogin: false, //是否已登录
+				name: null, //姓名
+				id: null, //学工号
+				password: null, //密码
+				className: null, //班级
+				ticket: null, //VPN登录凭据
+				at: null, //信息门户at凭据
+				token: null, //小程序后台登录凭据
+			}
 		}
 	}
 })

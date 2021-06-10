@@ -9,7 +9,7 @@
 					</view>
 					<view class="u-icon-wrap u-back-text u-line-1" v-if="backText" :style="[backTextStyle]">{{ backText }}</view>
 				</view>
-				<view class="u-navbar-content-title" v-if="title" :style="[titleStyle]">
+				<view class="u-navbar-content-title" v-if="showTitle" :style="[titleStyle]">
 					<view
 					    class="u-title u-line-1"
 					    :style="{
@@ -62,6 +62,7 @@
 	 * @property {Boolean} is-fixed 导航栏是否固定在顶部（默认true）
 	 * @property {Boolean} immersive 沉浸式，允许fixed定位后导航栏塌陷，仅fixed定位下生效（默认false）
 	 * @property {Boolean} border-bottom 导航栏底部是否显示下边框，如定义了较深的背景颜色，可取消此值（默认true）
+	 * @property {Booleam} show-title 是否展示标题（默认true） 
 	 * @example <u-navbar back-text="返回" title="剑未配妥，出门已是江湖"></u-navbar>
 	 */
 	export default {
@@ -125,6 +126,11 @@
 			titleSize: {
 				type: [String, Number],
 				default: 32
+			},
+			// 是否展示标题
+			showTitle: {
+				type: Boolean,
+				default: true
 			},
 			isBack: {
 				type: [Boolean, String],

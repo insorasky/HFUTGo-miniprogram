@@ -23,7 +23,7 @@
 					<text>今日课程</text>
 				</view>
 				<view class="schedule_body">
-					<view class="schedule_item" :style="'background-color:' + lessons[0].color">
+					<view class="schedule_item" :style="{backgroundColor: lessons[0].color}">
 						<u-row>
 							<u-col span="1">
 								<text style="font-size: 40rpx;">1</text>
@@ -34,7 +34,7 @@
 							</u-col>
 						</u-row>
 					</view>
-					<view class="schedule_item" :style="'background-color:' + lessons[1].color">
+					<view class="schedule_item" :style="{backgroundColor: lessons[1].color}">
 						<u-row>
 							<u-col span="1">
 								<text style="font-size: 40rpx;">2</text>
@@ -45,7 +45,7 @@
 							</u-col>
 						</u-row>
 					</view>
-					<view class="schedule_item" :style="'background-color:' + lessons[2].color">
+					<view class="schedule_item" :style="{backgroundColor: lessons[2].color}">
 						<u-row>
 							<u-col span="1">
 								<text style="font-size: 40rpx;">3</text>
@@ -56,7 +56,7 @@
 							</u-col>
 						</u-row>
 					</view>
-					<view class="schedule_item" :style="'background-color:' + lessons[3].color">
+					<view class="schedule_item" :style="{backgroundColor: lessons[3].color}">
 						<u-row>
 							<u-col span="1">
 								<text style="font-size: 40rpx;">4</text>
@@ -67,7 +67,7 @@
 							</u-col>
 						</u-row>
 					</view>
-					<view class="schedule_item" :style="'background-color:' + lessons[4].color">
+					<view class="schedule_item" :style="{backgroundColor: lessons[4].color}">
 						<u-row>
 							<u-col span="1">
 								<text style="font-size: 40rpx;">5</text>
@@ -155,15 +155,14 @@
 		beforeCreate() {
 			let that = this
 			this.$emit('input', true)
+			uni.showLoading({
+				title: '登录中',
+				icon: 'none'
+			})
 			this.$user.initialize().then(data => {
 				console.log("initialized")
-				let day = new Date().getDay()
-				/*
-				this.$request('/user/today', 'GET', null, null, false).then(data => {
-					that.today = data
-					this.stopLoading++;
-				})
-				*/
+				uni.hideLoading()
+				this.initSchedule(true)
 				this.$request('/user/today_page/balance', null, null, false).then(data => {
 					this.balance = data.balance
 					this.stopLoading++;
@@ -181,44 +180,48 @@
 					this.stopLoading++;
 				})
 				this.$request('/eduadmin/login', 'GET', null, null, false).then(data => {
-					schedule.getDay(null, false).then(data => {
-						for(const item of data){
-							for(const i of item.schedules){
-								for(const n of [...new Array(5).keys()]){
-									if(i.day == day && (i['class'].includes(2 * n + 1) || i['class'].includes(2 * n + 2))){
-										this.lessons[n].name = item.name
-										this.lessons[n].room = i.room
-										this.lessons[n].color = this.$hfutgo.randColor()
-										break
-									}
-								}
-							}
-						}
-						this.stopLoading++;
-					})
+					this.initSchedule(false)
 				})
 				/*
 				this.$request('/sc/my_projects?type=waiting').then(data => {
 					this.scProjects = data
 				})*/
 			}).catch(err => {
-				switch(err){
-					case 'password_error':
-						uni.showToast({
-							title: '密码错误',
-							icon: 'none'
-						})
-					default:
-						uni.reLaunch({
-							url: '/pages/user/login'
-						})
-				}
+				console.log(err)
+				if(err == 'password_error')
+					uni.showToast({
+						title: '密码错误',
+						icon: 'none'
+					})
+				uni.reLaunch({
+					url: '/pages/user/login'
+				})
 			})
 		},
 		methods: {
 			navigate(path){
 				uni.navigateTo({
 					url: '/pages/' + path
+				})
+			},
+			initSchedule(cache){
+				let day = new Date().getDay()
+				schedule.getDay(null, null, null, false, cache).then(data => {
+					for(const item of data){
+						for(const i of item.schedules){
+							for(const n of [...new Array(5).keys()]){
+								if(i.day == day && (i['class'].includes(2 * n + 1) || i['class'].includes(2 * n + 2))){
+									this.lessons[n].name = item.name
+									this.lessons[n].room = i.room
+									if(cache) this.lessons[n].color = this.$hfutgo.randColor()
+									break
+								}
+							}
+						}
+					}
+					if(!cache) this.stopLoading++;
+				}).catch(err => {
+					console.log(err)
 				})
 			}
 		},

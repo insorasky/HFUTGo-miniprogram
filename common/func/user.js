@@ -73,9 +73,9 @@ const user = {
 	getUserInfo(){
 		return userInfo.state.userInfo
 	},
-	isLogin(){
-		
-	},
+	reset(){
+		userInfo.commit('reset', {})
+	}
 }
 
 export default user

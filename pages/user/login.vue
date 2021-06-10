@@ -36,7 +36,9 @@
 			<view class="tipbody">
 				<text>可能是学校系统又抽风或更改设置了，请点击下方的按钮联系作者反馈问题：</text>
 			</view>
-			<u-button type="primary" shape="circle" plain :ripple="true" open-type="contact" style="margin-top: 15px;">联系作者微信</u-button>
+			<view style="margin-top: 15px;">
+				<u-button type="primary" shape="circle" plain :ripple="true" open-type="contact">联系作者微信</u-button>
+			</view>
 		</s-popup>
 	</view>
 </template>
