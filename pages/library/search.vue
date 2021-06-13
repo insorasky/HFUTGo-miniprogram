@@ -1,5 +1,6 @@
 <template>
 	<view class="body">
+		<u-top-tips ref="uTips"></u-top-tips>
 		<view class="input">
 			<u-search
 				placeholder="请输入查询关键词"
@@ -10,12 +11,12 @@
 				@search="search"
 			></u-search>
 		</view>
-		<s-list :empty="data.length == 0 && currentPage != -1" bg-color="#FFFFFF">
+		<s-list :empty="showEmpty" bg-color="#FFFFFF">
 			<u-cell-item v-for="(item, i) in data" :title="item.title" @click="showInfo(i)"
 				:label="`${item.author} ${item.publisher}`" :key="i"
 			></u-cell-item>
 		</s-list>
-		<u-loadmore v-show="showEmpty" :status="loading"></u-loadmore>
+		<u-loadmore :status="loading"></u-loadmore>
 		<u-back-top :scroll-top="scrollTop"></u-back-top>
 	</view>
 </template>
@@ -42,12 +43,14 @@
 					filters: this.filters
 				}).then(data => {
 					this.data = data.content
-					this.showEmpty = (currentPage != -1 && data.length != 0)
+					console.log(this.data.length)
+					this.showEmpty = (this.data.length == 0)
 				}).catch(err => {
-					this.$refs.uTips.show({
-						title: err.error,
-						type: 'error'
-					})
+					if(err.error)
+						this.$refs.uTips.show({
+							title: err.error,
+							type: 'error'
+						})
 				})
 				this.loading = 'loadmore'
 			},

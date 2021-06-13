@@ -151,7 +151,7 @@
 							this.details.push(data.details[i])
 						uni.stopPullDownRefresh()
 						this.loading = 'loadmore'
-						this.showEmpty = (details.length == 0)
+						this.showEmpty = (this.details.length == 0)
 					})
 				}).catch(err => {
 					this.$refs.uTips.show({
