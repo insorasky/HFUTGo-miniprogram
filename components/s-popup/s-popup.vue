@@ -64,7 +64,7 @@
 				this.height = '750rpx'
 				this.width = '650rpx'
 			}
-		}
+		},
 	}
 </script>
 

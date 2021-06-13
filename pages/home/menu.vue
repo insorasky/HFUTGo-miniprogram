@@ -21,6 +21,7 @@
 				-->
 			</u-grid>
 		</view>
+		<!--
 		<view class="group">
 			<view class="title">
 				<text>教学服务</text>
@@ -32,7 +33,6 @@
 				<u-grid-item>
 					<u-icon name="edit-pen" :size="iconSize" label="考试安排" label-pos="bottom" margin-top="20rpx" @click="navigate('eduadmin/exam')"/>
 				</u-grid-item>
-				<!--
 				<u-grid-item>
 					<u-icon name="list-dot" :size="iconSize" label="课程表" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
@@ -45,9 +45,9 @@
 				<u-grid-item>
 					<u-icon name="server-man" :size="iconSize" label="我的评教" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
-				-->
 			</u-grid>
 		</view>
+		-->
 		<view class="group">
 			<view class="title">
 				<text>图书馆</text>
@@ -94,11 +94,13 @@
 			</view>
 			<u-grid col="3" :border="false">
 				<u-grid-item>
-					<u-icon name="android-fill" :size="iconSize" label="自动打卡" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="android-fill" :size="iconSize" label="自XX卡" label-pos="bottom" margin-top="20rpx" @click="navigate('developer/autosubmit')"/>
 				</u-grid-item>
+				<!--
 				<u-grid-item>
-					<u-icon name="heart" :size="iconSize" label="健跑刷分" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="heart" :size="iconSize" label="健XX分" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
+				-->
 			</u-grid>
 		</view>
 	</view>
@@ -113,19 +115,30 @@
 				showDev: false
 			};
 		},
-		onLoad() {
-			uni.getStorage({
-				key: 'devMode',
-				success: (res) => {
-					this.showDev = res.data
-				}
-			})
-		},
 		methods: {
 			navigate(path){
 				uni.navigateTo({
 					url: '/pages/' + path
 				})
+			}
+		},
+		props: {
+			value: {
+				type: Number,
+				default: 1
+			}
+		},
+		watch: {
+			value(val){
+				if(val == 0){
+					console.log("menuvalue")
+					uni.getStorage({
+						key: 'showDev',
+						success: (res) => {
+							this.showDev = res.data
+						}
+					})
+				}
 			}
 		}
 	}

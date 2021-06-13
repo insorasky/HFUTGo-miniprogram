@@ -8,7 +8,7 @@
 		</view>
 		<view class="parent">
 			<u-empty
-				v-if="empty"
+				v-if="showEmpty"
 				text="是空的诶o(╥﹏╥)o"
 				:mode="mode"
 				:class="full ? 'full_empty' : ''" margin-top="30rpx"
@@ -58,8 +58,16 @@
 		},
 		data() {
 			return {
-				
+				showEmpty: false
 			};
+		},
+		watch:{
+			empty(newVal, oldVal){
+				if(newVal != oldVal) this.showEmpty = newVal
+			}
+		},
+		created() {
+			this.showEmpty = this.empty
 		}
 	}
 </script>

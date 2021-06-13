@@ -1,5 +1,6 @@
 <template>
 	<view class="body">
+		<u-top-tips ref="uTips"></u-top-tips>
 		<view class="group">
 			<s-list :cell-group="true" title="图书信息" bg-color="#FFFFFF">
 				<u-cell-item v-for="(item, i) in data.info" :title="item.title" :value="item.value" :arrow="false" :key="i"></u-cell-item>
@@ -51,6 +52,11 @@
 		onLoad(data) {
 			this.$request('/library/book_info?marc=' + data.marc).then(data => {
 				this.data = data
+			}).catch(err => {
+				this.$refs.uTips.show({
+					title: err.error,
+					type: 'error'
+				})
 			})
 		}
 	}

@@ -1,5 +1,6 @@
 <template>
 	<view class="body">
+		<u-top-tips ref="uTips"></u-top-tips>
 		<s-list :empty="data.length == 0" bg-color="#FFFFFF">
 			<u-cell-item
 				v-for="(item, i) in data"
@@ -29,6 +30,11 @@
 		onLoad() {
 			this.$request('/library/my_books').then(data => {
 				this.data = data
+			}).catch(err => {
+				this.$refs.uTips.show({
+					title: err.error,
+					type: 'error'
+				})
 			})
 		}
 	}

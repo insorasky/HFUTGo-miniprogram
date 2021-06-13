@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<u-top-tips ref="uTips"></u-top-tips>
 		<view class="selector">
 			<u-subsection :list="list" :current="currentType" @change="changeType"></u-subsection>
 		</view>
@@ -37,6 +38,11 @@
 		onLoad() {
 			this.$request('/library/hot').then(data => {
 				this.data = data
+			}).catch(err => {
+				this.$refs.uTips.show({
+					title: err.error,
+					type: 'error'
+				})
 			})
 		}
 	}

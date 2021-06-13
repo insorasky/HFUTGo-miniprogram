@@ -1,5 +1,6 @@
 <template>
 	<view class="body">
+		<u-top-tips ref="uTips"></u-top-tips>
 		<view class="head">
 			<view class="left">
 				<view class="title">
@@ -106,6 +107,11 @@
 						}else{
 							this.loading = 'nomore'
 						}
+					}).catch(err => {
+						this.$refs.uTips.show({
+							title: err.error,
+							type: 'error'
+						})
 					})
 				}
 			},
@@ -123,9 +129,9 @@
 					uni.startPullDownRefresh()
 				}).catch(err => {
 					uni.hideLoading()
-					uni.showToast({
-						title: '密码错误！',
-						icon: 'none'
+					this.$refs.uTips.show({
+						title: '密码错误',
+						type: 'error'
 					})
 				})
 			}
@@ -144,6 +150,11 @@
 							this.details.push(data.details[i])
 						uni.stopPullDownRefresh()
 						this.loading = 'loadmore'
+					})
+				}).catch(err => {
+					this.$refs.uTips.show({
+						title: err.error,
+						type: 'error'
 					})
 				})
 			})

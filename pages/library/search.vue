@@ -41,6 +41,11 @@
 					filters: this.filters
 				}).then(data => {
 					this.data = data.content
+				}).catch(err => {
+					this.$refs.uTips.show({
+						title: err.error,
+						type: 'erroe'
+					})
 				})
 				this.loading = 'loadmore'
 			},
@@ -66,6 +71,11 @@
 						this.data.push(item)
 					})
 					this.loading = 'loadmore'
+				}).catch(err => {
+					this.$refs.uTips.show({
+						title: err.error,
+						type: 'erroe'
+					})
 				})
 			}
 		},

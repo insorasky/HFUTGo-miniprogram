@@ -5,7 +5,7 @@
 			<u-loading mode="circle" class="nav-item" :color="$cfg.theme_color" size="40" :show="showLoading"></u-loading>
 		</u-navbar>
 		<view class="body">
-			<menu-page v-show="current == 0" />
+			<menu-page v-show="current == 0" v-model="current"/>
 			<today v-show="current == 1" v-model="showLoading" />
 			<my v-show="current == 2" />
 		</view>

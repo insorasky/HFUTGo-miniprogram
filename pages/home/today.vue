@@ -1,5 +1,6 @@
 <template name="today">
 	<view>
+		<u-top-tips ref="uTips" :navbar-height="titleHeight"></u-top-tips>
 		<s-notice page="home" />
 		<view>
 			<view class="link">
@@ -117,6 +118,7 @@
 		},
 		data() {
 			return {
+				titleHeight: uni.getSystemInfoSync().statusBarHeight + 44,
 				balance: '',
 				subscribe_books: 0,
 				borrow_books: 0,
@@ -189,9 +191,9 @@
 			}).catch(err => {
 				console.log(err)
 				if(err == 'password_error')
-					uni.showToast({
+					this.$refs.uTips.show({
 						title: '密码错误',
-						icon: 'none'
+						type: 'error'
 					})
 				uni.reLaunch({
 					url: '/pages/user/login'

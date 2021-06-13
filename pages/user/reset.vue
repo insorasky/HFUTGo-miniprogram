@@ -87,8 +87,8 @@
 				}).then(data => {
 					this.random = data.random
 					this.currentStep = 1
-					this.$refs.uCode.start()
 				}).catch(err => {
+					console.log('err')
 					this.$refs.uTips.show({
 						title: err.error,
 						type: 'warning'

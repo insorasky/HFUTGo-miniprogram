@@ -170,9 +170,19 @@
             }
             
         }
+        ,{
+            "path" : "pages/developer/autosubmit",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "自动打卡",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor":"#555555"
+            }
+            
+        }
     ],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
+		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "HFUTGo",
 		"navigationBarBackgroundColor": "#4da0e0",
 		"backgroundColor": "#4da0e0"
