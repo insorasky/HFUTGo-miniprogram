@@ -1,7 +1,7 @@
 <template>
 	<view class="body">
 		<u-top-tips ref="uTips"></u-top-tips>
-		<s-list :empty="data.length == 0" bg-color="#FFFFFF">
+		<s-list :empty="showEmpty" bg-color="#FFFFFF">
 			<u-cell-item
 				v-for="(item, i) in data"
 				:title="item.name"
@@ -17,7 +17,8 @@
 	export default {
 		data() {
 			return {
-				data: []
+				data: [],
+				showEmpty: true
 			};
 		},
 		methods: {
@@ -30,6 +31,7 @@
 		onLoad() {
 			this.$request('/library/my_books').then(data => {
 				this.data = data
+				this.showEmpty = (data.length == 0)
 			}).catch(err => {
 				this.$refs.uTips.show({
 					title: err.error,

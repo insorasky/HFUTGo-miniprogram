@@ -25,7 +25,7 @@
 			</view>
 		</view>
 		<view class="details">
-			<s-list :empty="false" :cellGroup="true">
+			<s-list :empty="showEmpty" :cellGroup="true">
 				<u-cell-item
 					v-for="(item, i) in details"
 					:title="item.time"
@@ -79,6 +79,7 @@
 					nomore: '莫得了',
 				},
 				password: '',
+				showEmpty: true,
 			};
 		},
 		methods: {
@@ -150,6 +151,7 @@
 							this.details.push(data.details[i])
 						uni.stopPullDownRefresh()
 						this.loading = 'loadmore'
+						this.showEmpty = (details.length == 0)
 					})
 				}).catch(err => {
 					this.$refs.uTips.show({

@@ -15,7 +15,7 @@
 				:label="`${item.author} ${item.publisher}`" :key="i"
 			></u-cell-item>
 		</s-list>
-		<u-loadmore v-show="currentPage != -1 && data.length != 0" :status="loading"></u-loadmore>
+		<u-loadmore v-show="showEmpty" :status="loading"></u-loadmore>
 		<u-back-top :scroll-top="scrollTop"></u-back-top>
 	</view>
 </template>
@@ -30,6 +30,7 @@
 				loading: 'loadmore',
 				filters: [],
 				scrollTop: 0,
+				showEmpty: false,
 			};
 		},
 		methods: {
@@ -41,10 +42,11 @@
 					filters: this.filters
 				}).then(data => {
 					this.data = data.content
+					this.showEmpty = (currentPage != -1 && data.length != 0)
 				}).catch(err => {
 					this.$refs.uTips.show({
 						title: err.error,
-						type: 'erroe'
+						type: 'error'
 					})
 				})
 				this.loading = 'loadmore'

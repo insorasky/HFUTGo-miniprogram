@@ -29,7 +29,7 @@
 			<u-button type="primary" @click="submit">{{enabled ? '禁用' : '启用'}}自动打卡</u-button>
 		</view>
 		<view class="form">
-			<s-list title="打卡记录(最近20条)" :empty="log.length == 0" :cell-group="true" :border="false">
+			<s-list title="打卡记录(最近20条)" :empty="showEmpty" :cell-group="true" :border="false">
 				<u-cell-item v-for="(item,i) in log" :title="item.time" :value="item.log" :arrow="false" :key="i"></u-cell-item>
 			</s-list>
 		</view>
@@ -42,6 +42,7 @@
 			return {
 				enabled: false,
 				log: [],
+				showEmpty: true,
 			};
 		},
 		onLoad() {
@@ -50,6 +51,7 @@
 			})
 			this.$request('/dev/auto_submit/log?page=1').then(data => {
 				this.log = data
+				this.showEmpty = (log.length == 0)
 			})
 		},
 		methods:{
