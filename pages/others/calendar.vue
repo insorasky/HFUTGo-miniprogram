@@ -1,7 +1,11 @@
 <template>
 	<view>
-		<u-subsection :list="list" :current="currentCampus" class="selector" @change="changeCampus"></u-subsection>
-		<u-image v-for="(pic, i) in pictures" :src="pic" class="image" mode="widthFix" @click="showImage(i)" :key="i"></u-image>
+		<view class="selector">
+			<u-subsection :list="list" :current="currentCampus" @change="changeCampus"></u-subsection>
+		</view>
+		<view v-for="(pic, i) in pictures" class="image">
+			<u-image :src="pic" mode="widthFix" @click="showImage(i)" :key="i"></u-image>
+		</view>
 	</view>
 </template>
 

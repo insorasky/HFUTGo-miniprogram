@@ -51,7 +51,7 @@
 			})
 			this.$request('/dev/auto_submit/log?page=1').then(data => {
 				this.log = data
-				this.showEmpty = (log.length == 0)
+				this.showEmpty = (this.log.length == 0)
 			})
 		},
 		methods:{

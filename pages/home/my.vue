@@ -47,7 +47,7 @@
 				<text class="subtitle">更新日志</text>
 				<u-collapse>
 					<u-collapse-item :title="'V' + item.version" v-for="(item, i) in updateLog.slice(0, 3)" :key="i">
-						{{item.log}}
+						<rich-text :nodes="item.log"></rich-text>
 					</u-collapse-item>
 				</u-collapse>
 			</view>
