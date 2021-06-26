@@ -81,7 +81,7 @@
 					</view>
 				</view>
 			</view>
-			
+			<!--
 			<view class="secondclass" v-if="false">
 				<view class="title">
 					<text>第二课堂</text>
@@ -90,7 +90,7 @@
 					<u-cell-item v-for="(project, i) in scProjects" :title="project.name" :label="project.organizer" @click="" :border-bottom="false" :key="i"></u-cell-item>
 				</s-list>
 			</view>
-			<view class="news" v-if="false">
+			<view class="news">
 				<view class="title">
 					<text>校园要闻</text>
 				</view>
@@ -101,7 +101,7 @@
 					<u-cell-item title="教务系统切换通知" :border-bottom="false"></u-cell-item>
 				</s-list>
 			</view>
-			
+			-->
 		</view>
 	</view>
 </template>
@@ -208,6 +208,13 @@
 			},
 			initSchedule(cache){
 				let day = new Date().getDay()
+				lessons = [
+					{color: this.$cfg.default_color, name: '', room: ''},
+					{color: this.$cfg.default_color, name: '', room: ''},
+					{color: this.$cfg.default_color, name: '', room: ''},
+					{color: this.$cfg.default_color, name: '', room: ''},
+					{color: this.$cfg.default_color, name: '', room: ''},
+				]
 				schedule.getDay(null, null, null, false, cache).then(data => {
 					for(const item of data){
 						for(const i of item.schedules){

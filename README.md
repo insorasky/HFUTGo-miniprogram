@@ -30,3 +30,4 @@
 ![Menu](screenshot_menu.png)
 ![Wash](screenshot_wash.png)
 ![ScScore](screenshot_scscore.png)
+![ScScore](screenshot_table.png)

@@ -180,6 +180,17 @@
             }
             
         }
+        ,{
+            "path" : "pages/eduadmin/timetable/timetable",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "课程表",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

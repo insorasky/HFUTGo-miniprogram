@@ -21,21 +21,23 @@
 				-->
 			</u-grid>
 		</view>
-		<!--
 		<view class="group">
 			<view class="title">
 				<text>教学服务</text>
 			</view>
 			<u-grid col="3" :border="false">
+				<!--
 				<u-grid-item>
 					<u-icon name="order" :size="iconSize" label="空教室查询" label-pos="bottom" margin-top="20rpx" @click="navigate('eduadmin/room')"/>
 				</u-grid-item>
+				-->
 				<u-grid-item>
 					<u-icon name="edit-pen" :size="iconSize" label="考试安排" label-pos="bottom" margin-top="20rpx" @click="navigate('eduadmin/exam')"/>
 				</u-grid-item>
 				<u-grid-item>
 					<u-icon name="list-dot" :size="iconSize" label="课程表" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
+				<!--
 				<u-grid-item>
 					<u-icon name="search" :size="iconSize" label="课程检索" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
@@ -45,9 +47,9 @@
 				<u-grid-item>
 					<u-icon name="server-man" :size="iconSize" label="我的评教" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
+				-->
 			</u-grid>
 		</view>
-		-->
 		<view class="group">
 			<view class="title">
 				<text>图书馆</text>

@@ -69,6 +69,37 @@ const schedule = {
 		}).catch(err => {
 			reject(err)
 		})
+	},
+	getExam(showToast = false, cache = false){
+		let reg = /(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2})~(\d{2}:\d{2})/i
+		let lessontime = [
+			{ start: Date.parse('2002-01-01 08:10'), end: Date.parse('2002-01-01 10:00') },
+			{ start: Date.parse('2002-01-01 10:20'), end: Date.parse('2002-01-01 12:10') },
+			{ start: Date.parse('2002-01-01 14:00'), end: Date.parse('2002-01-01 15:50') },
+			{ start: Date.parse('2002-01-01 16:00'), end: Date.parse('2002-01-01 17:50') },
+			{ start: Date.parse('2002-01-01 19:00'), end: Date.parse('2002-01-01 21:50') },
+		]
+		return new Promise((resolve, reject) => {
+			request('/eduadmin/exams').then(data => {
+				let result = data
+				result.forEach((item, index, arr) => {
+					time = item.time.match(reg)
+					result[index].date = time[1]
+					result[index].start = time[2]
+					result[index].end = time[3]
+					result[index].lessons = []
+					let start = Date.parse(`2002-01-01 ${time[1]}`)
+					let end = Date.parse(`2002-01-01 ${time[2]}`)
+					lessontime.forEach((item, i, arr) => {
+						if(item.start >= start && item.start < end)
+							result[index].lessons.push(i + 1)
+					})
+				})
+				resolve(result)
+			}).catch(err => {
+				reject(err)
+			})
+		})
 	}
 }
 
