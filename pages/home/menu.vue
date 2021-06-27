@@ -21,7 +21,7 @@
 				-->
 			</u-grid>
 		</view>
-		<view class="group">
+		<view class="group" v-if="showDev">
 			<view class="title">
 				<text>教学服务</text>
 			</view>
@@ -35,7 +35,7 @@
 					<u-icon name="edit-pen" :size="iconSize" label="考试安排" label-pos="bottom" margin-top="20rpx" @click="navigate('eduadmin/exam')"/>
 				</u-grid-item>
 				<u-grid-item>
-					<u-icon name="list-dot" :size="iconSize" label="课程表" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="list-dot" :size="iconSize" label="课程表" label-pos="bottom" margin-top="20rpx" @click="navigate('eduadmin/timetable')"/>
 				</u-grid-item>
 				<!--
 				<u-grid-item>
@@ -70,7 +70,7 @@
 			</u-grid>
 		</view>
 		<!--
-		<view class="group">
+		<view class="group" v-if="showDev">
 			<view class="title">
 				<text>第二课堂</text>
 			</view>
@@ -133,7 +133,6 @@
 		watch: {
 			value(val){
 				if(val == 0){
-					console.log("menuvalue")
 					uni.getStorage({
 						key: 'showDev',
 						success: (res) => {

@@ -181,7 +181,7 @@
             
         }
         ,{
-            "path" : "pages/eduadmin/timetable/timetable",
+            "path" : "pages/eduadmin/timetable",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "课程表",

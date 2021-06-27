@@ -54,7 +54,7 @@
 	 * select 列选择器
 	 * @description 此选择器用于单列，多列，多列联动的选择场景。(从1.3.0版本起，不建议使用Picker组件的单列和多列模式，Select组件是专门为列选择而构造的组件，更简单易用。)
 	 * @tutorial http://uviewui.com/components/select.html
-	 * @property {String} mode 模式选择，"single-column"-单列模式，"mutil-column"-多列模式，"mutil-column-auto"-多列联动模式
+	 * @property {String} mode 模式选择，"single-column"-单列模式，"multi-column"-多列模式，"multi-column-auto"-多列联动模式
 	 * @property {Array} list 列数据，数组形式，见官网说明
 	 * @property {Boolean} v-model 布尔值变量，用于控制选择器的弹出与收起
 	 * @property {Boolean} safe-area-inset-bottom 是否开启底部安全区适配(默认false)
@@ -122,7 +122,7 @@ export default {
 				return [0];
 			}
 		},
-		// 模式选择，single-column-单列，mutil-column-多列，mutil-column-auto-多列联动
+		// 模式选择，single-column-单列，multi-column-多列，multi-column-auto-多列联动
 		mode: {
 			type: String,
 			default: 'single-column'
@@ -219,9 +219,9 @@ export default {
 			// 单列的列数为1
 			if(this.mode == 'single-column') this.columnNum = 1;
 			// 多列时，this.list数组长度就是列数
-			else if(this.mode == 'mutil-column') this.columnNum = this.list.length;
+			else if(this.mode == 'multi-column') this.columnNum = this.list.length;
 			// 多列联动时，通过历遍this.list的第一个元素，得出有多少列
-			else if(this.mode == 'mutil-column-auto') {
+			else if(this.mode == 'multi-column-auto') {
 				let num = 1;
 				let column = this.list;
 				// 只要有元素并且第一个元素有children属性，继续历遍
@@ -236,7 +236,7 @@ export default {
 		setColumnData() {
 			let data = [];
 			this.selectValue = [];
-			if(this.mode == 'mutil-column-auto') {
+			if(this.mode == 'multi-column-auto') {
 				// 获得所有数据中的第一个元素
 				let column = this.list[this.defaultSelector.length ? this.defaultSelector[0] : 0];
 				// 通过循环所有的列数，再根据设定列的数组，得出当前需要渲染的整个列数组
@@ -278,7 +278,7 @@ export default {
 			let columnIndex = e.detail.value;
 			// 由于后面是需要push进数组的，所以需要先清空数组
 			this.selectValue = [];
-			if(this.mode == 'mutil-column-auto') {
+			if(this.mode == 'multi-column-auto') {
 				// 对比前后两个数组，寻找变更的是哪一列，如果某一个元素不同，即可判定该列发生了变化
 				this.lastSelectIndex.map((val, idx) => {
 					if (val != columnIndex[idx]) index = idx;
@@ -316,7 +316,7 @@ export default {
 				// 判断是否有需要额外携带的参数
 				if(data && data.extra !== undefined) tmp.extra = data.extra;
 				this.selectValue.push(tmp);
-			} else if(this.mode == 'mutil-column') {
+			} else if(this.mode == 'multi-column') {
 				// 初始默认选中值
 				columnIndex.map((item, index) => {
 					let data = this.columnData[index][columnIndex[index]];

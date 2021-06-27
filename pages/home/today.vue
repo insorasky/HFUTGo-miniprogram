@@ -190,14 +190,15 @@
 				})*/
 			}).catch(err => {
 				console.log(err)
-				if(err == 'password_error')
+				if(err == 'password_error'){
 					this.$refs.uTips.show({
 						title: '密码错误',
 						type: 'error'
 					})
-				uni.reLaunch({
-					url: '/pages/user/login'
-				})
+					uni.reLaunch({
+						url: '/pages/user/login'
+					})
+				}
 			})
 		},
 		methods: {
@@ -208,7 +209,7 @@
 			},
 			initSchedule(cache){
 				let day = new Date().getDay()
-				lessons = [
+				let lessons = [
 					{color: this.$cfg.default_color, name: '', room: ''},
 					{color: this.$cfg.default_color, name: '', room: ''},
 					{color: this.$cfg.default_color, name: '', room: ''},

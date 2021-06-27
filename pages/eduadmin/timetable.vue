@@ -1,3 +1,4 @@
+@@ -1,432 +0,0 @@
 <template>
 	<view class="body">
 		<u-top-tips refs="uTips"></u-top-tips>
@@ -11,7 +12,7 @@
 					<text>第15周</text>
 				</view>
 				<u-icon name="arrow-down-fill" class="selector-icon2" size="30"></u-icon>
-				<u-select v-model="showSelector" :list="list"></u-select>
+				<u-select v-model="showSelector" mode="multi-column" :list="list" @confirm="selectWeek"></u-select>
 			</view>
 		</u-navbar>
 		<uni-fab
@@ -24,7 +25,7 @@
 		<uni-fab
 			horizontal="left"
 			:popMenu="false"
-			@fabClick="lastWeek"
+			@fabClick="previousWeek"
 		>
 			<u-icon name="arrow-leftward" color="white" size="64"></u-icon>
 		</uni-fab>
@@ -91,12 +92,19 @@
 					</view>
 					<view class="table-row">
 						<view class="table-title table-title-nonlast">
-							周一<br />6.21
+							<view class="dayname">
+								<text>周一</text>
+							</view>
+							<view class="date">
+								<text>6.21</text>
+							</view>
 						</view>
 						<view class="table-border">
 						</view>
 						<view class="table-border">
-							<view class="table-item" :style="{backgroundColor: $hfutgo.randColor()}">
+							<view class="table-item" :style="{
+								backgroundColor: $hfutgo.randColor()
+							}">
 								<view>
 									<view class="lessonname">
 										<text>高等数学（上）</text>
@@ -108,7 +116,7 @@
 							</view>
 						</view>
 						<view class="table-border">
-							<view class="table-item" :style="{backgroundColor: $hfutgo.randColor()}">
+							<view class="table-item" :style="{backgroundColor: $hfutgo.randColor(), height: '380rpx', marginTop: '130rpx'}">
 								<view>
 									<view class="lessonname">
 										<text>数据结构</text>
@@ -136,7 +144,12 @@
 					</view>
 					<view class="table-row">
 						<view class="table-title table-title-nonlast">
-							周二<br />6.22
+							<view class="dayname">
+								<text>周二</text>
+							</view>
+							<view class="date">
+								<text>6.22</text>
+							</view>
 						</view>
 						<view class="table-border">
 						</view>
@@ -161,7 +174,12 @@
 					</view>
 					<view class="table-row">
 						<view class="table-title table-title-nonlast">
-							周三<br />6.23
+							<view class="dayname">
+								<text>周三</text>
+							</view>
+							<view class="date">
+								<text>6.23</text>
+							</view>
 						</view>
 						<view class="table-border">
 							<view class="table-item" :style="{backgroundColor: $hfutgo.randColor()}">
@@ -186,7 +204,12 @@
 					</view>
 					<view class="table-row">
 						<view class="table-title table-title-nonlast">
-							周四<br />6.24
+							<view class="dayname">
+								<text>周四</text>
+							</view>
+							<view class="date">
+								<text>6.24</text>
+							</view>
 						</view>
 						<view class="table-border">
 						</view>
@@ -221,7 +244,12 @@
 					</view>
 					<view class="table-row">
 						<view class="table-title table-title-nonlast">
-							周五<br />6.25
+							<view class="dayname">
+								<text>周五</text>
+							</view>
+							<view class="date">
+								<text>6.25</text>
+							</view>
 						</view>
 						<view class="table-border">
 						</view>
@@ -238,7 +266,7 @@
 							</view>
 						</view>
 						<view class="table-border">
-							<view class="table-item" v-if="false">
+							<view class="table-item">
 								<view>
 									<view class="lessonname">
 										<text>Java技术</text>
@@ -256,7 +284,12 @@
 					</view>
 					<view class="table-row">
 						<view class="table-title table-title-nonlast">
-							周六<br />6.26
+							<view class="dayname">
+								<text>周六</text>
+							</view>
+							<view class="date">
+								<text>6.26</text>
+							</view>
 						</view>
 						<view class="table-border">
 							<view class="table-item" :style="{backgroundColor: $hfutgo.randColor()}">
@@ -281,7 +314,12 @@
 					</view>
 					<view class="table-row">
 						<view class="table-title">
-							周日<br />6.27
+							<view class="dayname">
+								<text>周日</text>
+							</view>
+							<view class="date">
+								<text>6.27</text>
+							</view>
 						</view>
 						<view class="table-border">
 						</view>
@@ -296,7 +334,7 @@
 					</view>
 				</view>
 				<view class="bottom-place">
-					<u-icon name="heart" label="嘤嘤嘤"></u-icon>
+					<u-icon name="heart" label="加油！"></u-icon>
 				</view>
 			</scroll-view>
 		</view>
@@ -309,9 +347,20 @@
 			return {
 				showSelector: false,
 				list: [
-					{ value: 134, label: '2020-2021学年第二学期' },
-					{ value: 114, label: '2020-2021学年第一学期' },
-				]
+					[
+						{ value: 134, label: '2020-2021学年第二学期' },
+						{ value: 114, label: '2020-2021学年第一学期' },
+					],[
+						{ value: 1, label: '第1周'},
+						{ value: 2, label: '第2周'},
+						{ value: 3, label: '第3周'},
+						{ value: 4, label: '第4周'},
+						{ value: 5, label: '第5周'},
+					]
+				],
+				content: [],
+				currentWeek: 15,
+				
 			}
 		},
 		methods: {
@@ -324,9 +373,15 @@
 			nextWeek(){
 				
 			},
-			lastWeek(){
+			showDetails(){
 				
+			},
+			selectWeek(res){
+				console.log(JSON.stringify(res))
 			}
+		},
+		onLoad() {
+			
 		}
 	}
 </script>
@@ -346,7 +401,10 @@
 	}
 	.table-title{
 		text-align: center;
-		height: 80rpx;
+		height: 70rpx;
+		border-bottom-width: 2rpx;
+		border-bottom-style: solid;
+		border-bottom-color: #F0F0F0;
 	}
 	.table-title-nonlast{
 		border-right-width: 2rpx;
@@ -363,6 +421,7 @@
 		display: flex;    
 		justify-content:center;
 		align-items:center;
+		float: left;
 	}
 	.table-item-number{
 		width: 30rpx;
@@ -373,6 +432,7 @@
 		border: #F6F6F6;
 		border-style: solid;
 		border-width: 1rpx;
+		border-top: none;
 		height: 260rpx;
 		width: calc(708rpx / 7);
 	}
@@ -402,9 +462,15 @@
 	}
 	.lessonname{
 		font-size: 28rpx;
+		display: -webkit-box;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		word-break: break-all;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
 	}
 	.lessonroom{
-		font-size: 25rpx;
+		font-size: 20rpx;
 	}
 	.lessonnumber{
 		height: 130rpx;
@@ -414,6 +480,7 @@
 		border-bottom-width: 1rpx;
 		border-bottom-style: solid;
 		border-bottom-color: #F0F0F0;
+		color: #999999;
 	}
 	.lessonnumber911{
 		height: 87rpx;
@@ -423,10 +490,19 @@
 		border-bottom-width: 1rpx;
 		border-bottom-style: solid;
 		border-bottom-color: #F0F0F0;
+		color: #999999;
 	}
 	.bottom-place{
 		height: 150rpx;
 		text-align: center;
 		margin-top: 30rpx;
+	}
+	.dayname{
+		font-size: 25rpx;
+		color: #999999;
+	}
+	.date{
+		font-size: 22rpx;
+		color: #999999;
 	}
 </style>
