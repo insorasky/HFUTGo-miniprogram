@@ -22,8 +22,11 @@
 			<view class="schedule">
 				<view class="title" style="padding-left: 30rpx; padding-top: 20rpx;">
 					<text>今日课程</text>
+					<u-loading mode="circle" class="nav-item" :color="$cfg.theme_color" size="40" :show="lessonLoading"></u-loading>
 				</view>
-				<view class="schedule_body">
+				<view class="schedule_body" :style="{
+					'opacity': noLesson ? '0.5' : ''
+				}">
 					<view class="schedule_item" :style="{backgroundColor: lessons[0].color}">
 						<u-row>
 							<u-col span="1">
@@ -151,12 +154,52 @@
 					}
 				],
 				scProjects: [],
-				stopLoading: 0
+				stopLoading: 0,
+				lessonLoading: true,
+				lessonNum: 0,
+				noLesson: false,
 			};
+		},
+		methods: {
+			navigate(path){
+				uni.navigateTo({
+					url: '/pages/' + path
+				})
+			},
+			initSchedule(cache){
+				let day = new Date().getDay()
+				let lessons = [
+					{color: this.$cfg.default_color, name: '', room: ''},
+					{color: this.$cfg.default_color, name: '', room: ''},
+					{color: this.$cfg.default_color, name: '', room: ''},
+					{color: this.$cfg.default_color, name: '', room: ''},
+					{color: this.$cfg.default_color, name: '', room: ''},
+				]
+				schedule.getDay(null, null, null, false, cache).then(data => {
+					for(const item of data){
+						for(const i of item.schedules){
+							for(const n of [...new Array(5).keys()]){
+								if(i.day == day && (i['class'].includes(2 * n + 1) || i['class'].includes(2 * n + 2))){
+									this.lessons[n].name = item.name
+									this.lessons[n].room = i.room
+									this.lessonNum++;
+									if(cache) this.lessons[n].color = this.$hfutgo.randColor()
+									break
+								}
+							}
+						}
+					}
+					if(!cache) this.lessonLoading = false;
+					if(this.lessonNum == 0) this.noLesson = true;
+				}).catch(err => {
+					console.log(err)
+				})
+			}
 		},
 		beforeCreate() {
 			let that = this
 			this.$emit('input', true)
+			// this.initSchedule(true)
 			uni.showLoading({
 				title: '登录中',
 				icon: 'none'
@@ -164,7 +207,6 @@
 			this.$user.initialize().then(data => {
 				console.log("initialized")
 				uni.hideLoading()
-				this.initSchedule(true)
 				this.$request('/user/today_page/balance', null, null, false).then(data => {
 					this.balance = data.balance
 					this.stopLoading++;
@@ -201,40 +243,6 @@
 				}
 			})
 		},
-		methods: {
-			navigate(path){
-				uni.navigateTo({
-					url: '/pages/' + path
-				})
-			},
-			initSchedule(cache){
-				let day = new Date().getDay()
-				let lessons = [
-					{color: this.$cfg.default_color, name: '', room: ''},
-					{color: this.$cfg.default_color, name: '', room: ''},
-					{color: this.$cfg.default_color, name: '', room: ''},
-					{color: this.$cfg.default_color, name: '', room: ''},
-					{color: this.$cfg.default_color, name: '', room: ''},
-				]
-				schedule.getDay(null, null, null, false, cache).then(data => {
-					for(const item of data){
-						for(const i of item.schedules){
-							for(const n of [...new Array(5).keys()]){
-								if(i.day == day && (i['class'].includes(2 * n + 1) || i['class'].includes(2 * n + 2))){
-									this.lessons[n].name = item.name
-									this.lessons[n].room = i.room
-									if(cache) this.lessons[n].color = this.$hfutgo.randColor()
-									break
-								}
-							}
-						}
-					}
-					if(!cache) this.stopLoading++;
-				}).catch(err => {
-					console.log(err)
-				})
-			}
-		},
 		props: {
 			value: {
 				type: Boolean,
@@ -244,7 +252,7 @@
 		watch: {
 			stopLoading(newVal){
 				console.log('stopLoading' + newVal)
-				if(newVal == 5) this.$emit('input', false)
+				if(newVal == 4) this.$emit('input', false)
 			}
 		}
 	}
@@ -293,5 +301,8 @@
 		background-color: #FFFFFF;
 		border-radius: 30rpx;
 		padding: 15rpx;
+	}
+	.nav-item{
+		margin-left: 15rpx;
 	}
 </style>

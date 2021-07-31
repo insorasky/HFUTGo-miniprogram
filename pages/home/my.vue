@@ -81,6 +81,9 @@
 				@input="eduPwdInput"
 			></u-field>
 		</s-popup>
+		<s-popup title="课表设置" v-model="showSchedule">
+			
+		</s-popup>
 	</view>
 </template>
 
@@ -95,12 +98,14 @@
 				showAbout: false,
 				showContact: false,
 				showOtherSettings: false,
+				showSchedule: false,
 				showPassword: false,
 				updateLog: updateLog,
 				eduPwd: '',
 				showEduPwdErrMsg: false,
 				debug: (process.env.NODE_ENV == 'development'),
 				clickTimes: 0,
+				sentence: "",
 			};
 		},
 		methods:{
@@ -190,7 +195,13 @@
 					})
 					this.clickTimes = 0
 				}
+			},
+			setSentence(){
+				uni.setStorageSync("sentence", "")
 			}
+		},
+		beforeCreate() {
+			this.sentence = uni.getStorageSync("sentence")
 		}
 	}
 </script>

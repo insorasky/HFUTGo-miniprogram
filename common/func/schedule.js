@@ -65,9 +65,38 @@ const schedule = {
 					}
 				}
 				resolve(result)
+			}).catch(err => {
+				reject(err)
 			})
-		}).catch(err => {
-			reject(err)
+		})
+	},
+	getWeekByDay(semester = null, week = null, showToast = false, cache = false){
+		return new Promise((resolve, reject) => {
+			var result = []
+			semester = semester || config.defaultSemester
+			this.getAll(semester, showToast, cache).then(data => {
+				week = week || data.current_week
+				if(week <= 0) week = 1;
+				for(const day of [...new Array(7).keys()]){
+					result[day] = []
+					for(const item of data.lessons){
+						for(const i of item.schedules){
+							if(i.day - 1 == day){
+								if(i.weeks.includes(week)){
+									result[day].push(item)
+									break
+								}
+							}
+						}
+					}
+				}
+				resolve({
+					'week': week,
+					'schedule': result
+				})
+			}).catch(err => {
+				reject(err)
+			})
 		})
 	},
 	getExam(showToast = false, cache = false){
