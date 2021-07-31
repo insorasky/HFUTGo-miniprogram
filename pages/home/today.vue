@@ -9,13 +9,13 @@
 						<u-icon name="rmb-circle" :label="balance" label-pos="bottom" size="80" label-size="30" @click="navigate('others/card')"></u-icon>
 					</u-grid-item>
 					<u-grid-item>
-						<u-icon name="email" :label="unread_email + '封未读'" label-pos="bottom" size="80" label-size="30"></u-icon>
+						<u-icon name="email" :label="unread_email" label-pos="bottom" size="80" label-size="30"></u-icon>
 					</u-grid-item>
 					<u-grid-item>
-						<u-icon name="bookmark" :label="borrow_books + '本待还'" label-pos="bottom" size="80" label-size="30" @click="navigate('library/mybooks')"></u-icon>
+						<u-icon name="bookmark" :label="borrow_books" label-pos="bottom" size="80" label-size="30" @click="navigate('library/mybooks')"></u-icon>
 					</u-grid-item>
 					<u-grid-item>
-						<u-icon name="bookmark" :label="subscribe_books + '本预约'" label-pos="bottom" size="80" label-size="30"></u-icon>
+						<u-icon name="bookmark" :label="subscribe_books" label-pos="bottom" size="80" label-size="30"></u-icon>
 					</u-grid-item>
 				</u-grid>
 			</view>
@@ -122,37 +122,17 @@
 		data() {
 			return {
 				titleHeight: uni.getSystemInfoSync().statusBarHeight + 44,
-				balance: '',
-				subscribe_books: 0,
-				borrow_books: 0,
-				unread_email: 0,
-				lessons: [
-					{
-						color: this.$cfg.default_color,
-						name: '',
-						room: ''
-					},
-					{
-						color: this.$cfg.default_color,
-						name: '',
-						room: ''
-					},
-					{
-						color: this.$cfg.default_color,
-						name: '',
-						room: ''
-					},
-					{
-						color: this.$cfg.default_color,
-						name: '',
-						room: ''
-					},
-					{
+				balance: '加载中',
+				subscribe_books: "加载中",
+				borrow_books: "加载中",
+				unread_email: "加载中",
+				lessons: Array.from(Array(5), (v, k) => {
+					return {
 						color: this.$cfg.default_color,
 						name: '',
 						room: ''
 					}
-				],
+				}),
 				scProjects: [],
 				stopLoading: 0,
 				lessonLoading: true,
@@ -168,13 +148,13 @@
 			},
 			initSchedule(cache){
 				let day = new Date().getDay()
-				let lessons = [
-					{color: this.$cfg.default_color, name: '', room: ''},
-					{color: this.$cfg.default_color, name: '', room: ''},
-					{color: this.$cfg.default_color, name: '', room: ''},
-					{color: this.$cfg.default_color, name: '', room: ''},
-					{color: this.$cfg.default_color, name: '', room: ''},
-				]
+				let lessons = Array.from(Array(5), (v, k) => {
+					return {
+						color: this.$cfg.default_color,
+						name: '',
+						room: ''
+					}
+				})
 				schedule.getDay(null, null, null, false, cache).then(data => {
 					for(const item of data){
 						for(const i of item.schedules){
@@ -183,7 +163,7 @@
 									this.lessons[n].name = item.name
 									this.lessons[n].room = i.room
 									this.lessonNum++;
-									if(cache) this.lessons[n].color = this.$hfutgo.randColor()
+									this.lessons[n].color = this.$hfutgo.hashColor(item.name)
 									break
 								}
 							}
@@ -192,6 +172,7 @@
 					if(!cache) this.lessonLoading = false;
 					if(this.lessonNum == 0) this.noLesson = true;
 				}).catch(err => {
+					if(!cache) this.lessonLoading = false;
 					console.log(err)
 				})
 			}
@@ -210,18 +191,30 @@
 				this.$request('/user/today_page/balance', null, null, false).then(data => {
 					this.balance = data.balance
 					this.stopLoading++;
+				}).catch(err => {
+					this.balance = "加载失败"
+					console.log(err)
 				})
 				this.$request('/user/today_page/borrow', null, null, false).then(data => {
-					this.borrow_books = data.borrow_books
+					this.borrow_books = data.borrow_books + "封未读"
 					this.stopLoading++;
+				}).catch(err => {
+					this.borrow_books = "加载失败"
+					console.log(err)
 				})
 				this.$request('/user/today_page/subscribe', null, null, false).then(data => {
-					this.subscribe_books = data.subscribe_books
+					this.subscribe_books = data.subscribe_books + "本待还"
 					this.stopLoading++;
+				}).catch(err => {
+					this.subscribe_books = "加载失败"
+					console.log(err)
 				})
 				this.$request('/user/today_page/email', null, null, false).then(data => {
-					this.unread_email = data.unread_email
+					this.unread_email = data.unread_email + "本预约"
 					this.stopLoading++;
+				}).catch(err => {
+					this.unread_email = "加载失败"
+					console.log(err)
 				})
 				this.$request('/eduadmin/login', 'GET', null, null, false).then(data => {
 					this.initSchedule(false)

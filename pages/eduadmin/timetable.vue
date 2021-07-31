@@ -160,7 +160,15 @@
 						return {value: k + 1, label: "第" + (k + 1) + "周"}
 					})
 				],
-				content: this.generateDefaultTable(),
+				content: Array.from(Array(7), (v, k) => {
+					return {
+						num: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'][k],
+						date: "",
+						lessons: Array.from(Array(5), (v, k) => {
+							return {available: false}
+						})
+					}
+				}),
 				default_content: Array.from(Array(7), (v, k) => {
 					return {
 						num: "周X",
@@ -171,14 +179,6 @@
 					}
 				}),
 				currentWeek: [0, 0],
-				colors: {
-					'高等数学': 1,
-					'数据结构': 2,
-					'人际交往心理学': 3,
-					'Java技术': 4,
-					'大学英语（2）': 5,
-					'大学体育（2）': 6,
-				},
 				showDetail: false,
 				sentence: "加油！",
 				lessons: 0,
@@ -231,20 +231,30 @@
 				var result = Array.from(Array(7), (v, k) => {
 					return {
 						num: chinese[k],
-						date: "xx.xx",
+						date: "",
 						lessons: Array.from(Array(5), (v, k) => {
 							return {available: false}
 						})
 					}
 				})
+				console.log(this.semesters.details[this.list[0][this.currentWeek[0]].value].startDate)
+				let startDate = new Date(this.semesters.details[this.list[0][this.currentWeek[0]].value].startDate)
+				let year = startDate.getYear()
+				let month = startDate.getMonth()
+				let day = startDate.getDate() + 7 * this.currentWeek[1]
+				for(var i = 0; i < 7; i++){
+					let newDate = new Date(year, month, day + i)
+					//console.log((newDate.getMonth() + 1) + "." + newDate.getDate())
+					result[i].date = (newDate.getMonth() + 1) + "." + newDate.getDate()
+				}
 				return result
 			},
 			goWeek(refresh){
 				// console.log(refresh)
-				this.content = this.generateDefaultTable()
 				// 获取数据
 				schedule.getWeekByDay(this.list[0][this.currentWeek[0]].value, this.currentWeek[1] + 1, true, !refresh).then(w_data => {
 					this.data = w_data
+					this.content = this.generateDefaultTable()
 					// 跳转到当前周
 					//console.log(JSON.stringify([this.list[0][this.currentWeek[0]], this.currentWeek[1]]))
 					//console.log(JSON.stringify(this.data))
@@ -277,7 +287,7 @@
 				this.semesters = s_data
 				this.list[0] = s_data.semesters
 				this.currentWeek[0] = s_data.semesters.findIndex((res) => {return res.value == s_data.default})
-				this.goWeek(false)
+				this.goWeek(true)
 			})
 		}
 	}
