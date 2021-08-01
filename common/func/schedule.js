@@ -3,24 +3,36 @@ import config from '../data/config.js'
 
 const schedule = {
 	getSemesters(){
-		return request('/eduadmin/schedule/semesters')
+		return new Promise((resolve, reject) => {
+			request('/eduadmin/schedule/semesters').then(data => {
+				uni.setStorageSync('semesters', data)
+				resolve(data)
+			}).catch(err => {
+				let semesters = uni.getStorageSync('semesters')
+				if(semesters) resolve(semesters)
+				else reject(err)
+			})
+		})
 	},
 	getAll(semester = null, showToast = false, cache = false){
 		return new Promise((resolve, reject) => {
 			semester = semester || config.defaultSemester
 			if(cache){
 				console.log('cache')
-				let data = uni.getStorageSync('schedule_cache')
+				let data = uni.getStorageSync('schedule_' + semester + '_cache')
 				if(data) resolve(data)
 				else reject("No cache")
 			}else{
 				request('/eduadmin/schedule/schedules', 'GET', {
 					'sid': semester
 				}, null, showToast).then(data => {
-					uni.setStorageSync('schedule_cache', data)
+					uni.setStorageSync('schedule_' + semester + '_cache', data)
 					resolve(data)
 				}).catch(err => {
-					reject(err)
+					console.log('cache(network error)')
+					let data = uni.getStorageSync('schedule_' + semester + '_cache')
+					if(data) resolve(data)
+					else reject(err)
 				})
 			}
 		})

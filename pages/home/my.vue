@@ -24,7 +24,7 @@
 				<u-cell-item icon="account" title="帐号密码" @click="showPassword = true"></u-cell-item>
 				<u-cell-item icon="setting" title="其他设置" @click="showOtherSettings = true"></u-cell-item>
 				<u-cell-item icon="home" title="聚合今日首页" @click="coming()"></u-cell-item>
-				<u-cell-item icon="calendar" title="课程表" @click="coming()" :border-bottom="false"></u-cell-item>
+				<u-cell-item icon="calendar" title="课程表" @click="showSchedule = true" :border-bottom="false"></u-cell-item>
 			</u-cell-group>
 		</view>
 		<view class="group">
@@ -82,7 +82,12 @@
 			></u-field>
 		</s-popup>
 		<s-popup title="课表设置" v-model="showSchedule">
-			
+			<u-field
+				placeholder="座右铭将显示在课表的下方"
+				label="座右铭"
+				v-model="sentence"
+			></u-field>
+			<u-button type="primary" @click="setSentence" style="margin-top: 10rpx;">保存设置</u-button>
 		</s-popup>
 	</view>
 </template>
@@ -197,7 +202,12 @@
 				}
 			},
 			setSentence(){
-				uni.setStorageSync("sentence", "")
+				uni.setStorageSync("sentence", this.sentence)
+				uni.showToast({
+					icon:'success',
+					title:'设置成功'
+				})
+				this.showSchedule = false
 			}
 		},
 		beforeCreate() {

@@ -191,6 +191,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/developer/deviceInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "设备信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

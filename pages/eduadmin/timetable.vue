@@ -89,7 +89,7 @@
 							</view>
 						</view>
 					</view>
-					<view v-for="(day, i) in content" class="table-row">
+					<view v-for="(day, i) in content" class="table-row" :key="i">
 						<view class="table-title table-title-nonlast">
 							<view class="dayname">
 								<text>{{day.num}}</text>
@@ -98,13 +98,13 @@
 								<text>{{day.date}}</text>
 							</view>
 						</view>
-						<view v-for="(lesson, i) in day.lessons" class="table-border">
+						<view v-for="(lesson, j) in day.lessons" class="table-border" :key="j">
 							<view
 								class="table-item"
 								:style="{
 									backgroundColor: $hfutgo.hashColor(lesson.name)
 								}"
-								@click="showDetails()"
+								@click="showDetails(i, j)"
 								@touchstart=""
 								@touchend=""
 								v-if="lesson.available"
@@ -122,20 +122,37 @@
 					</view>
 				</view>
 				<view class="bottom-place">
-					<u-icon name="heart" label="加油！"></u-icon>
+					<u-icon name="heart" :label="sentence"></u-icon>
 				</view>
 			</scroll-view>
 		</view>
 		<s-popup title="课程详情" v-model="showDetail">
-			<view class="lesson-details">
+			<view class="lesson-details" v-if="showDetail">
 				<u-cell-group>
-					<u-cell-item title="课程名称" value="Java技术" :arrow="false"></u-cell-item>
-					<u-cell-item title="课程代码" value="0X154648-23" :arrow="false"></u-cell-item>
-					<u-cell-item title="班级" value="智能科学与技术20-1班" :arrow="false"></u-cell-item>
-					<u-cell-item title="课程类型" value="各专业选修课" :arrow="false"></u-cell-item>
-					<u-cell-item title="教师" value="路强" :arrow="false"></u-cell-item>
-					<u-button type="primary" style="margin-top: 20rpx;">查看该课程时间安排</u-button>
+					<u-cell-item title="课程名称" :value="thisDetail.name" :arrow="false"></u-cell-item>
+					<u-cell-item title="课程代码" :value="thisDetail.code" :arrow="false"></u-cell-item>
+					<u-cell-item title="班级" :value="thisDetail.classes" :arrow="false"></u-cell-item>
+					<u-cell-item title="课程类型" :value="thisDetail.type" :arrow="false"></u-cell-item>
+					<u-cell-item title="教师" :value="thisDetail.displayTeachers" :arrow="false"></u-cell-item>
+					<u-cell-item title="学分" :value="thisDetail.credits" :arrow="false"></u-cell-item>
+					<!-- <u-cell-item title="当前时间段周数" :value="thisDetail.displayWeeks" :arrow="false"></u-cell-item>-->
+					<!-- <u-button type="primary" style="margin-top: 20rpx;">查看该课程时间安排</u-button> -->
 				</u-cell-group>
+				<view class="week-title">
+					<text>当前时间段开课周</text>
+				</view>
+				<view class="week-list">
+					<view
+						class="week-block"
+						v-for="week in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]"
+						:style="{
+							backgroundColor: thisDetail.displayWeeks.includes(week) ? '#7FFFAA' : '#EFEFEF'
+						}"
+						:key="week"
+					>
+						<text>{{week}}</text>
+					</view>
+				</view>
 			</view>
 		</s-popup>
 	</view>
@@ -169,17 +186,9 @@
 						})
 					}
 				}),
-				default_content: Array.from(Array(7), (v, k) => {
-					return {
-						num: "周X",
-						date: "xx.xx",
-						lessons: Array.from(Array(5), (v, k) => {
-							return {available: false}
-						})
-					}
-				}),
 				currentWeek: [0, 0],
 				showDetail: false,
+				thisDetail: {},
 				sentence: "加油！",
 				lessons: 0,
 			}
@@ -210,13 +219,15 @@
 				this.currentWeek[1]++
 				this.goWeek(false)
 			},
-			showDetails(){
+			showDetails(i, j){
+				console.log([i, j])
+				this.thisDetail = this.content[i].lessons[j].detail
 				this.showDetail = true
 			},
 			selectWeek(res){
 				var refresh = false
 				this.list[0].forEach((item, index, arr) => {
-					if(item.value == res[0].value){
+					if(item.value == res[0].value && this.currentWeek[0] != index){
 						this.currentWeek[0] = index
 						refresh = true
 					}
@@ -237,7 +248,7 @@
 						})
 					}
 				})
-				console.log(this.semesters.details[this.list[0][this.currentWeek[0]].value].startDate)
+				// console.log(this.semesters.details[this.list[0][this.currentWeek[0]].value].startDate)
 				let startDate = new Date(this.semesters.details[this.list[0][this.currentWeek[0]].value].startDate)
 				let year = startDate.getYear()
 				let month = startDate.getMonth()
@@ -263,11 +274,14 @@
 						for(const item of day){
 							//console.log(JSON.stringify(item))
 							for(const i of item.schedules){
-								for(const n of [...new Array(5).keys()]){
+								for(var n = 0; n < 5; n++){
 									if(i.day == daynum + 1 && (i['class'].includes(2 * n + 1) || i['class'].includes(2 * n + 2))){
 										this.content[daynum].lessons[n].name = item.name
 										this.content[daynum].lessons[n].room = i.room
+										this.content[daynum].lessons[n].detail = item
 										this.content[daynum].lessons[n].available = true
+										this.content[daynum].lessons[n].detail.displayTeachers = Array.from(item.teachers, (v, k) => {return v.name}).join(',')
+										this.content[daynum].lessons[n].detail.displayWeeks = i.weeks
 									}
 								}
 							}
@@ -288,12 +302,17 @@
 				this.list[0] = s_data.semesters
 				this.currentWeek[0] = s_data.semesters.findIndex((res) => {return res.value == s_data.default})
 				this.goWeek(true)
+			}).catch(err => {
+				console.log(err)
 			})
 		}
 	}
 </script>
 
 <style>
+	page{
+		background-color: #FFFFFF;
+	}
 	.body{
 		
 	}
@@ -411,5 +430,24 @@
 	.date{
 		font-size: 22rpx;
 		color: #999999;
+	}
+	.week-list{
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.week-block{
+		width: 108rpx;
+		height: 70rpx;
+		line-height: 70rpx;
+		background-color: #EFEFEF;
+		border-radius: 15rpx;
+		border-width: 3rpx;
+		border-style: solid;
+		border-color: #FFFFFF;
+		text-align: center;
+	}
+	.week-title{
+		margin: 10rpx;
+		color: #666666;
 	}
 </style>

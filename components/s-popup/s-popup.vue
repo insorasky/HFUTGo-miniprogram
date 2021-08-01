@@ -8,7 +8,9 @@
 				<view class="subtitle" v-show="subtitle != ''">
 					<text>{{subtitle}}</text>
 				</view>
-				<scroll-view scroll-y="true" :style="'height: ' + height + ';'">
+				<scroll-view scroll-y="true" :style="{
+					height: height
+				}">
 					<view>
 						<slot />
 					</view>

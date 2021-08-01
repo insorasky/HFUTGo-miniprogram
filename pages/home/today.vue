@@ -24,9 +24,13 @@
 					<text>今日课程</text>
 					<u-loading mode="circle" class="nav-item" :color="$cfg.theme_color" size="40" :show="lessonLoading"></u-loading>
 				</view>
-				<view class="schedule_body" :style="{
-					'opacity': noLesson ? '0.5' : ''
-				}">
+				<view
+					class="schedule_body"
+					:style="{
+						'opacity': noLesson ? '0.5' : ''
+					}"
+					@click="navigate('eduadmin/timetable')"
+				>
 					<view class="schedule_item" :style="{backgroundColor: lessons[0].color}">
 						<u-row>
 							<u-col span="1">

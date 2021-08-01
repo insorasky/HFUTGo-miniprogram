@@ -21,7 +21,7 @@
 				-->
 			</u-grid>
 		</view>
-		<view class="group" v-if="showDev">
+		<view class="group">
 			<view class="title">
 				<text>教学服务</text>
 			</view>
@@ -95,6 +95,9 @@
 				<u-icon style="float: left" name="warning" :size="50" label="开发者模式" label-size="35" margin-left="15" />
 			</view>
 			<u-grid col="3" :border="false">
+				<u-grid-item>
+					<u-icon name="phone" :size="iconSize" label="设备信息" label-pos="bottom" margin-top="20rpx" @click="navigate('developer/deviceInfo')"/>
+				</u-grid-item>
 				<u-grid-item>
 					<u-icon name="android-fill" :size="iconSize" label="自XX卡" label-pos="bottom" margin-top="20rpx" @click="navigate('developer/autosubmit')"/>
 				</u-grid-item>
