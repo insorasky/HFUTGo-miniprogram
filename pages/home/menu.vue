@@ -37,15 +37,15 @@
 				<u-grid-item>
 					<u-icon name="list-dot" :size="iconSize" label="课程表" label-pos="bottom" margin-top="20rpx" @click="navigate('eduadmin/timetable')"/>
 				</u-grid-item>
+				<u-grid-item>
+					<u-icon name="server-man" :size="iconSize" label="我的评教" label-pos="bottom" margin-top="20rpx" @click="navigate('eduadmin/evaluate/list')"/>
+				</u-grid-item>
 				<!--
 				<u-grid-item>
 					<u-icon name="search" :size="iconSize" label="课程检索" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				<u-grid-item>
 					<u-icon name="thumb-up" :size="iconSize" label="成绩查询" label-pos="bottom" margin-top="20rpx"/>
-				</u-grid-item>
-				<u-grid-item>
-					<u-icon name="server-man" :size="iconSize" label="我的评教" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				-->
 			</u-grid>

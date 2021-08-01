@@ -196,6 +196,25 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "设备信息",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor":"#555555"
+            }
+            
+        }
+        ,{
+            "path" : "pages/eduadmin/evaluate/list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "评教",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/eduadmin/evaluate/evaluate",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "评教页面",
                 "enablePullDownRefresh": false
             }
             

@@ -64,4 +64,7 @@
 </script>
 
 <style lang="scss">
+	page{
+		background-color: #555555;
+	}
 </style>

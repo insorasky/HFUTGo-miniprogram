@@ -3,8 +3,8 @@
 		<view class="selector">
 			<u-subsection :list="list" :current="currentCampus" @change="changeCampus"></u-subsection>
 		</view>
-		<view v-for="(pic, i) in pictures" class="image">
-			<u-image :src="pic" mode="widthFix" @click="showImage(i)" :key="i"></u-image>
+		<view v-for="(pic, i) in pictures" class="image" :key="i">
+			<u-image :src="pic" mode="widthFix" @click="showImage(i)"></u-image>
 		</view>
 	</view>
 </template>
