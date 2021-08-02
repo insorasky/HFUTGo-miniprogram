@@ -2,27 +2,6 @@
 	<view>
 		<view class="group">
 			<view class="title">
-				<text>日常生活</text>
-			</view>
-			<u-grid col="3" :border="false">
-				<u-grid-item>
-					<u-icon name="photo" :size="iconSize" label="洗衣机" label-pos="bottom" margin-top="20rpx" @click="navigate('wash/list')"/>
-				</u-grid-item>
-				<u-grid-item>
-					<u-icon name="rmb-circle" :size="iconSize" label="校园卡" label-pos="bottom" margin-top="20rpx" @click="navigate('others/card')"/>
-				</u-grid-item>
-				<u-grid-item>
-					<u-icon name="calendar" :size="iconSize" label="校历表" label-pos="bottom" margin-top="20rpx" @click="navigate('others/calendar')"/>
-				</u-grid-item>
-				<!--
-				<u-grid-item>
-					<u-icon name="attach" :size="iconSize" label="信息公开" label-pos="bottom" margin-top="20rpx"/>
-				</u-grid-item>
-				-->
-			</u-grid>
-		</view>
-		<view class="group">
-			<view class="title">
 				<text>教学服务</text>
 			</view>
 			<u-grid col="3" :border="false">
@@ -46,6 +25,29 @@
 				<!--
 				<u-grid-item>
 					<u-icon name="search" :size="iconSize" label="课程检索" label-pos="bottom" margin-top="20rpx"/>
+				</u-grid-item>
+				-->
+			</u-grid>
+		</view>
+		<view class="group">
+			<view class="title">
+				<text>日常生活</text>
+			</view>
+			<u-grid col="3" :border="false">
+				<u-grid-item>
+					<u-icon name="photo" :size="iconSize" label="洗衣机" label-pos="bottom" margin-top="20rpx" @click="navigate('wash/list')"/>
+				</u-grid-item>
+				<!--
+				<u-grid-item>
+					<u-icon name="rmb-circle" :size="iconSize" label="校园卡" label-pos="bottom" margin-top="20rpx" @click="navigate('others/card')"/>
+				</u-grid-item>
+				-->
+				<u-grid-item>
+					<u-icon name="calendar" :size="iconSize" label="校历表" label-pos="bottom" margin-top="20rpx" @click="navigate('others/calendar')"/>
+				</u-grid-item>
+				<!--
+				<u-grid-item>
+					<u-icon name="attach" :size="iconSize" label="信息公开" label-pos="bottom" margin-top="20rpx"/>
 				</u-grid-item>
 				-->
 			</u-grid>

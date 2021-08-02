@@ -99,7 +99,6 @@
 		data() {
 			return {
 				titleHeight: uni.getSystemInfoSync().statusBarHeight + 44,
-				userInfo: this.$user.getUserInfo(),
 				showAbout: false,
 				showContact: false,
 				showOtherSettings: false,
@@ -212,6 +211,11 @@
 		},
 		beforeCreate() {
 			this.sentence = uni.getStorageSync("sentence")
+		},
+		computed: {
+			userInfo(){
+				return this.$user.getUserInfo()
+			},
 		}
 	}
 </script>

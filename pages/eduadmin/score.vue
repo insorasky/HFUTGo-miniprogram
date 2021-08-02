@@ -10,7 +10,9 @@
 		</u-dropdown>
 		<scroll-view
 			:scroll-y="true"
-			style="height: calc(100vh - 170rpx);"
+			:style="{
+				'height': height
+			}"
 		>
 			<u-card
 				v-for="(item, i) in scores"
@@ -48,7 +50,7 @@
 			return {
 				currentSemester: "",
 				semesters: [],
-				scores: []
+				scores: [],
 			};
 		},
 		methods: {
@@ -65,6 +67,9 @@
 			currentSemesterName(){
 				if(this.semesters.length == 0) return "载入中"
 				return this.semesters.find((n) => n.value == this.currentSemester).label
+			},
+			height(){
+				return 'calc(' + uni.getSystemInfoSync().windowHeight + 'px - 80rpx)'
 			}
 		},
 		onLoad() {
@@ -80,6 +85,9 @@
 			}).catch(err => {
 				console.log(err)
 			})
+		},
+		onShow() {
+			uni.startPullDownRefresh()
 		},
 		onPullDownRefresh() {
 			this.$request('/eduadmin/score/info?sid=' + this.currentSemester).then(data => {
