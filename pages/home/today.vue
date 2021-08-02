@@ -201,6 +201,7 @@
 					this.stopLoading++;
 				}).catch(err => {
 					this.balance = "加载失败"
+					this.stopLoading++;
 					console.log(err)
 				})
 				this.$request('/user/today_page/borrow', null, null, false).then(data => {
@@ -208,6 +209,7 @@
 					this.stopLoading++;
 				}).catch(err => {
 					this.borrow_books = "加载失败"
+					this.stopLoading++;
 					console.log(err)
 				})
 				this.$request('/user/today_page/subscribe', null, null, false).then(data => {
@@ -215,6 +217,7 @@
 					this.stopLoading++;
 				}).catch(err => {
 					this.subscribe_books = "加载失败"
+					this.stopLoading++;
 					console.log(err)
 				})
 				this.$request('/user/today_page/email', null, null, false).then(data => {
@@ -222,8 +225,20 @@
 					this.stopLoading++;
 				}).catch(err => {
 					this.unread_email = "加载失败"
+					this.stopLoading++;
 					console.log(err)
 				})
+			}).catch(err => {
+				console.log(err)
+				if(err == 'password_error'){
+					this.$refs.uTips.show({
+						title: '密码错误',
+						type: 'error'
+					})
+					uni.reLaunch({
+						url: '/pages/user/login'
+					})
+				}
 			})
 				/*
 				this.$request('/sc/my_projects?type=waiting').then(data => {

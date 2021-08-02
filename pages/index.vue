@@ -58,6 +58,11 @@
 			}
 		},
 		onLoad() {
+			if(!uni.getStorageSync('userInfo')){
+				uni.reLaunch({
+					url: '/pages/user/login'
+				})
+			}
 			this.loadUpdate()
 		},
 		methods: {

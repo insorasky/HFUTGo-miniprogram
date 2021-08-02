@@ -70,10 +70,10 @@
 					})
 				}).catch(err => {
 					uni.hideLoading()
-					console.log(err.status == 3303)
+					console.log(err)
 					if(err.status == 3301)
-						this.$refs.uTips.show({
-							title: '请先访问新信息门户设置邮箱和手机！'
+						uni.navigateTo({
+							url: './verify?username=' + this.id + '&boss_ticket=' + err.error.boss_ticket + '&vpn_ticket=' + err.error.ticket + '&old_password=' + this.password
 						})
 					else if(err.status == 3303)
 						this.$refs.uTips.show({
@@ -97,6 +97,9 @@
 			    wx.hideHomeButton();  
 			}  
 			// #endif
+		},
+		onShow() {
+			this.password = ''
 		}
 	}
 </script>

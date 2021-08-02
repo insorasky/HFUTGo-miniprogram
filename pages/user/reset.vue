@@ -14,15 +14,15 @@
 						<u-radio name="mail">邮箱</u-radio>
 					</u-radio-group>
 				</view>
+				<s-input placeholder="请输入验证码" v-model="captcha"></s-input>
 				<u-row gutter="16">
-					<u-col span="8">
-						<s-input placeholder="请输入验证码" v-model="captcha"></s-input>
+					<u-col span="8" style="margin-top: 25rpx;">
+						<u-button @tap="getCode" type="primary" @click="getCode">获取验证码</u-button>
 					</u-col>
 					<u-col span="4">
-						<u-image :src="captchaImage" mode="aspectFit" height="98" @click="newSession"></u-image>
+						<u-image :src="captchaImage" mode="aspectFit" height="80" @click="newSession"></u-image>
 					</u-col>
 				</u-row>
-				<u-button @tap="getCode" type="primary" @click="getCode">获取验证码</u-button>
 			</view>
 			<view v-else-if="currentStep == 1" class="form">
 				<s-input placeholder="请输入您收到的验证码" v-model="code"></s-input>

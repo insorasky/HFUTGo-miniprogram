@@ -26,6 +26,7 @@ const user = {
 					reject(data)
 				}
 			}).catch(err => {
+				uni.hideNavigationBarLoading()
 				reject(err)
 			})
 		})
@@ -54,7 +55,7 @@ const user = {
 		})
 	},
 	logout(){
-		request('/user/logout').then(data => {
+		// request('/user/logout').then(data => {
 			userInfo.state.userInfo = {
 				hasLogin: false, //是否已登录
 				name: null, //姓名
@@ -65,11 +66,11 @@ const user = {
 				at: null, //信息门户at凭据
 				token: null, //小程序后台登录凭据
 			}
-			uni.removeStorageSync('userInfo')
+			uni.setStorageSync('userInfo', 0)
 			uni.reLaunch({
 				url: '/pages/user/login.vue'
 			})
-		})
+		// })
 		
 	},
 	getUserInfo(){
