@@ -185,6 +185,7 @@
 			let that = this
 			this.$emit('input', true)
 			// this.initSchedule(true)
+			/*
 			uni.showLoading({
 				title: '登录中',
 				icon: 'none'
@@ -192,6 +193,9 @@
 			this.$user.initialize().then(data => {
 				console.log("initialized")
 				uni.hideLoading()
+				*/
+			this.$request('/eduadmin/login', 'GET', null, null, true).then(data => {
+				this.initSchedule(false)
 				this.$request('/user/today_page/balance', null, null, false).then(data => {
 					this.balance = data.balance
 					this.stopLoading++;
@@ -220,14 +224,12 @@
 					this.unread_email = "加载失败"
 					console.log(err)
 				})
-				this.$request('/eduadmin/login', 'GET', null, null, false).then(data => {
-					this.initSchedule(false)
-				})
+			})
 				/*
 				this.$request('/sc/my_projects?type=waiting').then(data => {
 					this.scProjects = data
 				})*/
-			}).catch(err => {
+			/*}).catch(err => {
 				console.log(err)
 				if(err == 'password_error'){
 					this.$refs.uTips.show({
@@ -238,7 +240,7 @@
 						url: '/pages/user/login'
 					})
 				}
-			})
+			})*/
 		},
 		props: {
 			value: {

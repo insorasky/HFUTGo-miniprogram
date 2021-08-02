@@ -219,6 +219,16 @@
             }
             
         }
+        ,{
+            "path" : "pages/eduadmin/score",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "成绩查询",
+                "enablePullDownRefresh": true
+                
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

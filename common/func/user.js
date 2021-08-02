@@ -3,12 +3,14 @@ import request from '../request/request.js'
 import eduadmin from './eduadmin.js'
 
 const user = {
-	login: function(id, password, showToast=true){
+	login: function(id, password, showToast=false){
 		return new Promise((resolve, reject) => {
+			uni.showNavigationBarLoading()
 			request('/user/login', 'GET', {
 				'id': id,
 				'password': password
-			}, null, showToast).then(data => {
+			}, null, true).then(data => {
+				uni.hideNavigationBarLoading()
 				if(data){
 					userInfo.state.userInfo.hasLogin = true
 					userInfo.state.userInfo.name = data.name
