@@ -9,7 +9,7 @@ const user = {
 			request('/user/login', 'GET', {
 				'id': id,
 				'password': password
-			}, null, true).then(data => {
+			}, null, false).then(data => {
 				uni.hideNavigationBarLoading()
 				if(data){
 					userInfo.state.userInfo.hasLogin = true
@@ -46,7 +46,9 @@ const user = {
 					resolve('登陆成功')
 				}).catch(err => {
 					if(err.status == 3303){
-						resolve('password_wrong')
+						reject('password_wrong')
+					}else{
+						reject(err)
 					}
 				})
 			}else{

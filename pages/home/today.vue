@@ -1,6 +1,7 @@
 <template name="today">
 	<view>
 		<u-top-tips ref="uTips" :navbar-height="titleHeight"></u-top-tips>
+		<u-alert-tips v-if="networkError" title="网络错误" description="看起来获取课表时似乎出了点网络错误……已启用本地缓存，课程表功能正常使用，请检查网络状况，欢迎加入交流群：862212085 反馈问题。"></u-alert-tips>
 		<s-notice page="home" />
 		<view>
 			<view class="link">
@@ -141,7 +142,8 @@
 				noticeLoading: true,
 				lessonNum: 0,
 				noLesson: false,
-				notices: []
+				notices: [],
+				networkError: false
 			};
 		},
 		methods: {
@@ -178,10 +180,10 @@
 							}
 						}
 					}
-					if(!cache) this.lessonLoading = false;
+					this.lessonLoading = false;
 					if(this.lessonNum == 0) this.noLesson = true;
 				}).catch(err => {
-					if(!cache) this.lessonLoading = false;
+					this.lessonLoading = false;
 					console.log(err)
 				})
 			}
@@ -189,82 +191,52 @@
 		beforeCreate() {
 			let that = this
 			this.$emit('input', true)
-			// this.initSchedule(true)
-			/*
-			uni.showLoading({
-				title: '登录中',
-				icon: 'none'
-			})
-			this.$user.initialize().then(data => {
-				console.log("initialized")
-				uni.hideLoading()
-				*/
-			this.$request('/eduadmin/login', 'GET', null, null, true).then(data => {
+			this.$request('/eduadmin/login', 'GET', null, null, false).then(data => {
 				this.initSchedule(false)
-				this.$request('/user/today_page/balance', null, null, false).then(data => {
-					this.balance = data.balance
-					this.stopLoading++;
-				}).catch(err => {
-					this.balance = "加载失败"
-					this.stopLoading++;
-					console.log(err)
-				})
-				this.$request('/user/today_page/borrow', null, null, false).then(data => {
-					this.borrow_books = data.borrow_books + "封未读"
-					this.stopLoading++;
-				}).catch(err => {
-					this.borrow_books = "加载失败"
-					this.stopLoading++;
-					console.log(err)
-				})
-				this.$request('/user/today_page/subscribe', null, null, false).then(data => {
-					this.subscribe_books = data.subscribe_books + "本待还"
-					this.stopLoading++;
-				}).catch(err => {
-					this.subscribe_books = "加载失败"
-					this.stopLoading++;
-					console.log(err)
-				})
-				this.$request('/user/today_page/email', null, null, false).then(data => {
-					this.unread_email = data.unread_email + "本预约"
-					this.stopLoading++;
-				}).catch(err => {
-					this.unread_email = "加载失败"
-					this.stopLoading++;
-					console.log(err)
-				})
-				this.$request('/channel/channels/one_notice?page=1&size=5', null, null, false).then(data => {
-					this.notices = data
-					this.noticeLoading = false
-				})
+			}).catch(err => {
+				this.initSchedule(true)
+				this.networkError = true
+				console.log(err)
+			})
+			this.$request('/user/today_page/balance', null, null, false).then(data => {
+				this.balance = data.balance
+				this.stopLoading++;
+			}).catch(err => {
+				this.balance = "加载失败"
+				this.stopLoading++;
+				console.log(err)
+			})
+			this.$request('/user/today_page/borrow', null, null, false).then(data => {
+				this.borrow_books = data.borrow_books + "封未读"
+				this.stopLoading++;
+			}).catch(err => {
+				this.borrow_books = "加载失败"
+				this.stopLoading++;
+				console.log(err)
+			})
+			this.$request('/user/today_page/subscribe', null, null, false).then(data => {
+				this.subscribe_books = data.subscribe_books + "本待还"
+				this.stopLoading++;
+			}).catch(err => {
+				this.subscribe_books = "加载失败"
+				this.stopLoading++;
+				console.log(err)
+			})
+			this.$request('/user/today_page/email', null, null, false).then(data => {
+				this.unread_email = data.unread_email + "本预约"
+				this.stopLoading++;
+			}).catch(err => {
+				this.unread_email = "加载失败"
+				this.stopLoading++;
+				console.log(err)
+			})
+			this.$request('/channel/channels/one_notice?page=1&size=5', null, null, false).then(data => {
+				this.notices = data
+				this.noticeLoading = false
 			}).catch(err => {
 				console.log(err)
-				if(err == 'password_error'){
-					this.$refs.uTips.show({
-						title: '密码错误',
-						type: 'error'
-					})
-					uni.reLaunch({
-						url: '/pages/user/login'
-					})
-				}
+				this.noticeLoading = false
 			})
-				/*
-				this.$request('/sc/my_projects?type=waiting').then(data => {
-					this.scProjects = data
-				})*/
-			/*}).catch(err => {
-				console.log(err)
-				if(err == 'password_error'){
-					this.$refs.uTips.show({
-						title: '密码错误',
-						type: 'error'
-					})
-					uni.reLaunch({
-						url: '/pages/user/login'
-					})
-				}
-			})*/
 		},
 		props: {
 			value: {

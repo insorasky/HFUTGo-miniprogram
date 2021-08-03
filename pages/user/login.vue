@@ -26,18 +26,19 @@
 		<s-popup title="无法登录？" v-model="showHelp">
 			<text class="subtitle">密码正确却无法登录？</text>
 			<view class="tipbody">
-				<text>请确认使用的是您在新版东软平台（新版信息门户：one.hfut.edu.cn）而非旧版金智平台（旧版信息门户：my.hfut.edu.cn）/教务系统/VPN/校园网的帐号。</text>
+				<text>请确认使用的是您在新版东软平台（新版信息门户：one.hfut.edu.cn）而非旧版金智平台/教务系统/VPN/校园网的帐号。</text>
 			</view>
 			<text class="subtitle">我忘记了密码？</text>
 			<view class="tipbody">
-				<text>默认密码为身份证号后六位。如果您修改过密码，请点击左侧忘记密码、登录信息门户或前往本校区信息化中心重置密码。</text>
+				<text>默认密码为身份证号后六位。如果您修改过密码，请点击左侧忘记密码或登录信息门户重置密码。</text>
 			</view>
 			<text class="subtitle">还是无法登录？</text>
 			<view class="tipbody">
-				<text>可能是学校系统又抽风或更改设置了，请点击下方的按钮联系作者反馈问题：</text>
+				<text>可能是学校系统又抽风了，请点击下方的按钮添加交流群或联系作者反馈问题：</text>
 			</view>
 			<view style="margin-top: 15px;">
 				<u-button type="primary" shape="circle" plain :ripple="true" open-type="contact">联系作者微信</u-button>
+				<u-button @click="copyGroupNum()" type="primary" shape="circle" plain :ripple="true" open-type="contact" style="margin-top: 20rpx;">点击加入QQ交流群：862212085</u-button>
 			</view>
 		</s-popup>
 	</view>
@@ -53,6 +54,14 @@
 			};
 		},
 		methods: {
+			copyGroupNum(){
+				uni.setClipboardData({
+					data: '862212085'
+				})
+				uni.showToast({
+					title: '已复制群号'
+				})
+			},
 			login(){
 				if(!this.id || !this.password){
 					this.$refs.uTips.show({
@@ -66,7 +75,7 @@
 				})
 				this.$user.login(this.id, this.password, false).then(data => {
 					uni.reLaunch({
-						url:'/pages/index'
+						url:'/pages/home/home'
 					})
 				}).catch(err => {
 					uni.hideLoading()

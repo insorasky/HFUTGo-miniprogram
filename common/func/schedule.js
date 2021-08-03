@@ -32,7 +32,13 @@ const schedule = {
 					console.log('cache(network error)')
 					let data = uni.getStorageSync('schedule_' + semester + '_cache')
 					if(data) resolve(data)
-					else reject(err)
+					else{
+						uni.showToast({
+							icon: 'none',
+							title: '获取失败，该学期未缓存！'
+						})
+						reject(err)
+					}
 				})
 			}
 		})
