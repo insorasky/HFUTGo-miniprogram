@@ -97,18 +97,16 @@
 					<u-cell-item v-for="(project, i) in scProjects" :title="project.name" :label="project.organizer" @click="" :border-bottom="false" :key="i"></u-cell-item>
 				</s-list>
 			</view>
+			-->
 			<view class="news">
 				<view class="title">
-					<text>校园要闻</text>
+					<text>通知公告</text>
+					<u-loading mode="circle" class="nav-item" :color="$cfg.theme_color" size="40" :show="noticeLoading"></u-loading>
 				</view>
 				<s-list :border="false">
-					<u-cell-item title="合肥工业大学关于与中国科学技术大学合并的通知" :border-bottom="false"></u-cell-item>
-					<u-cell-item title="两校合并,你需要知道些什么？" :border-bottom="false"></u-cell-item>
-					<u-cell-item title="中科大和合工大合并" :border-bottom="false"></u-cell-item>
-					<u-cell-item title="教务系统切换通知" :border-bottom="false"></u-cell-item>
+					<u-cell-item v-for="(item, i) in notices" :key="i" :title="item.title" @click="showNotice(i)" :border-bottom="false"></u-cell-item>
 				</s-list>
 			</view>
-			-->
 		</view>
 	</view>
 </template>
@@ -140,11 +138,18 @@
 				scProjects: [],
 				stopLoading: 0,
 				lessonLoading: true,
+				noticeLoading: true,
 				lessonNum: 0,
 				noLesson: false,
+				notices: []
 			};
 		},
 		methods: {
+			showNotice(i){
+				uni.navigateTo({
+					url: '/pages/news/content?url=' + encodeURIComponent(this.notices[i].url)
+				})
+			},
 			navigate(path){
 				uni.navigateTo({
 					url: '/pages/' + path
@@ -227,6 +232,10 @@
 					this.unread_email = "加载失败"
 					this.stopLoading++;
 					console.log(err)
+				})
+				this.$request('/channel/channels/one_notice?page=1&size=5', null, null, false).then(data => {
+					this.notices = data
+					this.noticeLoading = false
 				})
 			}).catch(err => {
 				console.log(err)

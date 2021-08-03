@@ -45,11 +45,9 @@
 				<u-grid-item>
 					<u-icon name="calendar" :size="iconSize" label="校历表" label-pos="bottom" margin-top="20rpx" @click="navigate('others/calendar')"/>
 				</u-grid-item>
-				<!--
 				<u-grid-item>
-					<u-icon name="attach" :size="iconSize" label="信息公开" label-pos="bottom" margin-top="20rpx"/>
+					<u-icon name="attach" :size="iconSize" label="通知公告" label-pos="bottom" margin-top="20rpx" @click="navigate('news/list')"/>
 				</u-grid-item>
-				-->
 			</u-grid>
 		</view>
 		<view class="group">
