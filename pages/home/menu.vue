@@ -64,20 +64,23 @@
 				<u-grid-item>
 					<u-icon name="search" :size="iconSize" label="馆藏检索" label-pos="bottom" margin-top="20rpx" @click="navigate('library/search')"/>
 				</u-grid-item>
+				<!--
 				<u-grid-item>
 					<u-icon name="info-circle" :size="iconSize" label="借阅查询" label-pos="bottom" margin-top="20rpx" @click="navigate('library/mybooks')"/>
 				</u-grid-item>
+				-->
 			</u-grid>
 		</view>
-		<!--
 		<view class="group" v-if="showDev">
 			<view class="title">
 				<text>第二课堂</text>
 			</view>
 			<u-grid col="3" :border="false">
+				<!--
 				<u-grid-item>
 					<u-icon name="file-text" :size="iconSize" label="成绩查询" label-pos="bottom" margin-top="20rpx" @click="navigate('secondclass/score')"/>
 				</u-grid-item>
+				-->
 				<u-grid-item>
 					<u-icon name="integral" :size="iconSize" label="排行榜" label-pos="bottom" margin-top="20rpx" @click="navigate('secondclass/ranking')"/>
 				</u-grid-item>
@@ -89,7 +92,6 @@
 				</u-grid-item>
 			</u-grid>
 		</view>
-		-->
 		<view class="group" v-if="showDev">
 			<view class="title">
 				<u-icon style="float: left" name="warning" :size="50" label="开发者模式" label-size="35" margin-left="15" />

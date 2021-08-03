@@ -3,9 +3,11 @@
 		<view style="margin: 10rpx;">
 			<u-alert-tips type="warning" :description="alert"></u-alert-tips>
 			<u-button type="primary" @click="copyLink" style="margin-top: 10rpx;">复制原文链接</u-button>
+			<!--<rich-text :nodes="html" type="text"></rich-text>-->
+			<view class="content">
+				<text>{{text}}</text>
+			</view>
 		</view>
-		<!--<rich-text :nodes="html" type="text"></rich-text>-->
-		<text>{{text}}</text>
 	</view>
 </template>
 
@@ -38,12 +40,21 @@
 				'url': res.url
 			}).then(data => {
 				this.html = data.html
-				this.text = data.text
+				this.text = data.text.replace(/ +/g, ' ').replace(/ \n/g, '').replace(/\n+/g, '\n')
+			}).catch(err => {
+				this.text = '该链接非学校域名（hfut.edu.cn）下的链接，请点击上方”复制原文链接”按钮后到浏览器查看原文！'
 			})
 		}
 	}
 </script>
 
 <style lang="scss">
-	
+	.content{
+		margin-top: 10rpx;
+		background-color: #FFFFFF;
+		border-radius: 20rpx;
+		border-style: solid;
+		border-width: 2rpx;
+		padding: 20rpx;
+	}
 </style>

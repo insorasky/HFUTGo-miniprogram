@@ -1,16 +1,23 @@
 <template>
 	<view class="body">
 		<u-subsection :list="list" :current="currentType" @change="changeType" class="selector"></u-subsection>
-		<s-list :cell-group="true" bg-color="#FFFFFF">
-			<u-cell-item
-				v-for="(item, i) in data"
-				:title="item.name"
-				:label="item.organizer"
-				:key="i"
-				@click="showInfo(i)"
-			></u-cell-item>
-		</s-list>
-		<u-loadmore :status="loadStatus"></u-loadmore>
+		<scroll-view
+			:scroll-y="true"
+			:style="{
+				'height': height
+			}"
+		>
+			<s-list :cell-group="true" bg-color="#FFFFFF">
+				<u-cell-item
+					v-for="(item, i) in data"
+					:title="item.name"
+					:label="item.organizer"
+					:key="i"
+					@click="showInfo(i)"
+				></u-cell-item>
+			</s-list>
+			<u-loadmore :status="loadStatus"></u-loadmore>
+		</scroll-view>
 	</view>
 </template>
 
@@ -28,6 +35,11 @@
 				currentPage: 1,
 				loadStatus: 'loadmore'
 			};
+		},
+		computed: {
+			height(){
+				return 'calc(' + uni.getSystemInfoSync().windowHeight + 'px - 100rpx)'
+			}
 		},
 		methods:{
 			changeType(index){
@@ -52,6 +64,12 @@
 					data.data.forEach((item, index, arr) => {
 						this.data.push(item)
 					})
+				}).catch(err => {
+					uni.showToast({
+						icon: 'none',
+						title: '到底了'
+					})
+					this.loadStatus = 'nomore'
 				})
 			}
 		}
@@ -63,6 +81,6 @@
 		margin: 20rpx;
 	}
 	.body{
-		margin: 20rpx;
+		
 	}
 </style>

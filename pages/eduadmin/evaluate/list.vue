@@ -42,7 +42,7 @@
 		},
 		onShow() {
 			this.$request("/eduadmin/evaluate/subjects?sid=134&").then(data => {
-				console.log(JSON.stringify(data))
+				// console.log(JSON.stringify(data))
 				this.data = data
 			})
 		}
