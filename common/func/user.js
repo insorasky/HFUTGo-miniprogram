@@ -45,9 +45,13 @@ const user = {
 				this.login(info.id, info.password).then(data => {
 					resolve('登陆成功')
 				}).catch(err => {
-					if(err.status == 3303){
-						reject('password_wrong')
-					}else{
+					try{
+						if(typeof err.status != 'undefined' && err.status == 3303){
+							reject('password_wrong')
+						}else{
+							reject(err)
+						}
+					}catch(e){
 						reject(err)
 					}
 				})

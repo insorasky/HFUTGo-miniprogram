@@ -13,7 +13,7 @@
 						<u-icon name="email" :label="unread_email" label-pos="bottom" size="80" label-size="30"></u-icon>
 					</u-grid-item>
 					<u-grid-item>
-						<u-icon name="bookmark" :label="borrow_books" label-pos="bottom" size="80" label-size="30" @click="navigate('library/mybooks')"></u-icon>
+						<u-icon name="bookmark" :label="borrow_books" label-pos="bottom" size="80" label-size="30"></u-icon>
 					</u-grid-item>
 					<u-grid-item>
 						<u-icon name="bookmark" :label="subscribe_books" label-pos="bottom" size="80" label-size="30"></u-icon>
@@ -207,7 +207,7 @@
 				console.log(err)
 			})
 			this.$request('/user/today_page/borrow', null, null, false).then(data => {
-				this.borrow_books = data.borrow_books + "封未读"
+				this.borrow_books = data.borrow_books + "本待还"
 				this.stopLoading++;
 			}).catch(err => {
 				this.borrow_books = "加载失败"
@@ -215,7 +215,7 @@
 				console.log(err)
 			})
 			this.$request('/user/today_page/subscribe', null, null, false).then(data => {
-				this.subscribe_books = data.subscribe_books + "本待还"
+				this.subscribe_books = data.subscribe_books + "本预约"
 				this.stopLoading++;
 			}).catch(err => {
 				this.subscribe_books = "加载失败"
@@ -223,7 +223,7 @@
 				console.log(err)
 			})
 			this.$request('/user/today_page/email', null, null, false).then(data => {
-				this.unread_email = data.unread_email + "本预约"
+				this.unread_email = data.unread_email + "封未读"
 				this.stopLoading++;
 			}).catch(err => {
 				this.unread_email = "加载失败"

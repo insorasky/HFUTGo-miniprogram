@@ -2,7 +2,9 @@
 	<view>
 		<view style="margin: 10rpx;">
 			<u-alert-tips type="warning" :description="alert"></u-alert-tips>
-			<u-button type="primary" @click="copyLink" style="margin-top: 10rpx;">复制原文链接</u-button>
+			<view style="margin-top: 10rpx;">
+				<u-button type="primary" @click="copyLink">复制原文链接</u-button>
+			</view>
 			<!--<rich-text :nodes="html" type="text"></rich-text>-->
 			<view class="content">
 				<text>{{text}}</text>
@@ -35,9 +37,9 @@
 			}
 		},
 		onLoad(res) {
-			this.url = res.url
+			this.url = decodeURIComponent(res.url)
 			this.$request('/channel/article', 'GET', {
-				'url': res.url
+				'url': this.url
 			}).then(data => {
 				this.html = data.html
 				this.text = data.text.replace(/ +/g, ' ').replace(/ \n/g, '').replace(/\n+/g, '\n')
