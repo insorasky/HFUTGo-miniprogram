@@ -4,16 +4,14 @@
 		"^s-(.*)": "@/components/s-$1/s-$1.vue"
 	},
 	"pages": [
-        {
-            "path" : "pages/index",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "HFUTGo",
-                "enablePullDownRefresh": false,
-				"navigationStyle": "custom"
-            }
-            
-        },
+		{
+			"path": "pages/home/home",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
+			}
+		},
 		{
 			"path": "pages/home/home",
 			"style": {
