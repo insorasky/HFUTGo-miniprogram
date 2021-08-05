@@ -14,32 +14,34 @@
 				'height': height
 			}"
 		>
-			<u-card
-				v-for="(item, i) in scores"
-				:key="i"
-				:title="item.name"
-				:sub-title="item.pending ? '未评教' : '成绩：' + item.score + '；GPA：' + item.point"
-				:body-style="{
-					'margin': '-30rpx'
-				}"
-				margin="20rpx"
-			>
-				<u-cell-group slot="body" :border="false">
-					<u-cell-item
-						v-if="!item.pending"
-						v-for="(score, j) in item.details"
-						:key="j"
-						:title="score.name"
-						:value="score.score"
-						:arrow="false"
-					></u-cell-item>
-					<u-cell-item
-						v-if="item.pending"
-						title="点击前往评教"
-						@click="goEvaluate"
-					></u-cell-item>
-				</u-cell-group>
-			</u-card>
+			<s-list :empty="isEmpty" margin="0rpx">
+				<u-card
+					v-for="(item, i) in scores"
+					:key="i"
+					:title="item.name"
+					:sub-title="item.pending ? '未评教' : '成绩：' + item.score + '；GPA：' + item.point"
+					:body-style="{
+						'margin': '-30rpx'
+					}"
+					margin="20rpx"
+				>
+					<u-cell-group slot="body" :border="false">
+						<u-cell-item
+							v-if="!item.pending"
+							v-for="(score, j) in item.details"
+							:key="j"
+							:title="score.name"
+							:value="score.score"
+							:arrow="false"
+						></u-cell-item>
+						<u-cell-item
+							v-if="item.pending"
+							title="点击前往评教"
+							@click="goEvaluate"
+						></u-cell-item>
+					</u-cell-group>
+				</u-card>
+			</s-list>
 		</scroll-view>
 	</view>
 </template>
@@ -70,6 +72,9 @@
 			},
 			height(){
 				return 'calc(' + uni.getSystemInfoSync().windowHeight + 'px - 80rpx)'
+			},
+			isEmpty(){
+				return this.scores.length == 0
 			}
 		},
 		onLoad() {

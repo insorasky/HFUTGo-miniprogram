@@ -37,6 +37,13 @@
 		},
 		methods: {
 			search(value){
+				if(!value){
+					uni.showToast({
+						icon: 'none',
+						title: '请输入关键词'
+					})
+					return
+				}
 				this.currentPage = 1
 				this.$request('/library/book_search', 'POST', null, {
 					page: 1,

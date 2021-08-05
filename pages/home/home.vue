@@ -15,7 +15,7 @@
 			<today v-if="current != -1" v-show="current == 1" v-model="showLoading" />
 			<my v-if="current != -1" v-show="current == 2" />
 		</view>
-		<u-tabbar v-model="current" :list="list" :mid-button="true" active-color="#4da0e0" :border-top="true" v-show="current != -1"></u-tabbar>
+		<u-tabbar v-model="current" :list="list" :mid-button="true" :active-color="$cfg.theme_color" :border-top="true" v-show="current != -1"></u-tabbar>
 		<s-popup :title="`v${updateLog_[0].version} 更新日志`" v-model="showUpdate" mode="center">
 			<rich-text :nodes="updateLog_[0].log"></rich-text>
 		</s-popup>
@@ -69,6 +69,7 @@
 			    wx.hideHomeButton();  
 			}  
 			// #endif
+			
 			if(!uni.getStorageSync('userInfo')){
 				uni.reLaunch({
 					url: '/pages/user/login'

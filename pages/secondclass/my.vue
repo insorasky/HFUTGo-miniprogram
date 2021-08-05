@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<u-subsection :list="list" :current="currentType" class="selector" @change="changeType"></u-subsection>
-		<s-list :empty="data.length == 0" :cell-group="true" bg-color="#FFFFFF">
+		<s-list :empty="isEmpty" :cell-group="true" bg-color="#FFFFFF">
 			<u-cell-item v-for="(item, i) in data" :key="i" :title="item.name" :label="item.organizer" @click="selectItem(i)"></u-cell-item>
 		</s-list>
 	</view>
@@ -34,6 +34,11 @@
 		},
 		onLoad() {
 			this.changeType(0)
+		},
+		computed:{
+			isEmpty(){
+				return this.data.length == 0
+			}
 		}
 	}
 </script>

@@ -1,26 +1,28 @@
 <template>
 	<view>
-		<u-card
-			v-for="(item, i) in data"
-			margin="20rpx"
-			:title="item.name"
-			:sub-title="item.period.end"
-			:key="i"
-			:body-style="{
-				'margin': '-30rpx'
-			}"
-		>
-			<u-cell-group slot="body" :border="false">
-				<u-cell-item
-					v-for="(task, j) in item.tasks"
-					:title="task.teacher"
-					:value="task.submitted ? '已提交' : '未提交'"
-					@click="startEvaluate(i, j)"
-					:key="j"
-					:arrow="!task.submitted"
-				></u-cell-item>
-			</u-cell-group>
-		</u-card>
+		<s-list :empty="isEmpty" margin="0rpx">
+			<u-card
+				v-for="(item, i) in data"
+				margin="20rpx"
+				:title="item.name"
+				:sub-title="item.period.end"
+				:key="i"
+				:body-style="{
+					'margin': '-30rpx'
+				}"
+			>
+				<u-cell-group slot="body" :border="false">
+					<u-cell-item
+						v-for="(task, j) in item.tasks"
+						:title="task.teacher"
+						:value="task.submitted ? '已提交' : '未提交'"
+						@click="startEvaluate(i, j)"
+						:key="j"
+						:arrow="!task.submitted"
+					></u-cell-item>
+				</u-cell-group>
+			</u-card>
+		</s-list>
 	</view>
 </template>
 
@@ -45,6 +47,11 @@
 				// console.log(JSON.stringify(data))
 				this.data = data
 			})
+		},
+		computed:{
+			isEmpty(){
+				return this.data.length == 0
+			}
 		}
 	}
 </script>

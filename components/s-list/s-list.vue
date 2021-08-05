@@ -1,5 +1,13 @@
 <template name="s-list">
-	<view class="list" :style="full ? 'height: calc(100vh - ' + otherHeight + ')' : ''">
+	<view
+		class="list"
+		:style="full ? {
+			height: 'calc(100vh - ' + otherHeight + ')',
+			margin: margin
+		}: {
+			margin: margin
+		}"
+	>
 		<u-cell-group :border="border" v-show="cellGroup" :bg-color="bgColor" :title="title">
 			<slot />
 		</u-cell-group>
@@ -11,8 +19,11 @@
 				v-show="showEmpty"
 				text="是空的诶o(╥﹏╥)o"
 				:mode="mode"
-				:class="full ? 'full_empty' : ''" margin-top="30rpx"
-				:style="full ? 'height: calc(100vh - ' + otherHeight + ')' : ''"
+				:class="full ? 'full_empty' : ''"
+				margin-top="30rpx"
+				:style="full ? {
+					height: 'calc(100vh - ' + otherHeight + ')'
+				}: {}"
 			></u-empty>
 		</view>
 	</view>
@@ -54,6 +65,10 @@
 			title: {
 				type: String,
 				default: ''
+			},
+			margin: {
+				type: String,
+				default: '20rpx'
 			}
 		},
 		data() {
@@ -79,11 +94,17 @@
 
 <style lang="scss">
 	.list{
-		margin: 20rpx;
+		
 	}
 	.full_empty{
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+	.parent{
+		position: absolute;
+		top: 45%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 </style>

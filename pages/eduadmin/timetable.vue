@@ -1,7 +1,7 @@
 <template>
 	<view class="body">
 		<u-top-tips refs="uTips"></u-top-tips>
-		<u-navbar title="" :show-title="false" :background="{backgroundColor: '#4da0e0'}" back-icon-color="#FFFFFF">
+		<u-navbar title="" :show-title="false" :background="{backgroundColor: $cfg.theme_color}" back-icon-color="#FFFFFF">
 			<view
 				class="selector"
 				@click="selectorClick"
@@ -18,6 +18,9 @@
 			horizontal="right"
 			:popMenu="false"
 			@fabClick="nextWeek"
+			:pattern="{
+				'buttonColor': $cfg.theme_color
+			}"
 		>
 			<u-icon name="arrow-rightward" color="white" size="64"></u-icon>
 		</uni-fab>
@@ -25,6 +28,9 @@
 			horizontal="left"
 			:popMenu="false"
 			@fabClick="previousWeek"
+			:pattern="{
+				'buttonColor': $cfg.theme_color
+			}"
 		>
 			<u-icon name="arrow-leftward" color="white" size="64"></u-icon>
 		</uni-fab>
