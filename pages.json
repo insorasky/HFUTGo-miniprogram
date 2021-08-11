@@ -247,6 +247,33 @@
             }
             
         }
+        ,{
+            "path" : "pages/eduadmin/classtable/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "班级课表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/eduadmin/classtable/timetable",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "班级课表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/home/guest/guest",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "游客主页",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

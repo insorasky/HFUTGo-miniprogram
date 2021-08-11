@@ -3,10 +3,10 @@
 		class="list"
 		:style="rootStyle"
 	>
-		<u-cell-group :border="border" v-show="cellGroup" :bg-color="bgColor" :title="title">
+		<u-cell-group :border="border" v-if="cellGroup" :bg-color="bgColor" :title="title">
 			<slot />
 		</u-cell-group>
-		<view v-show="!cellGroup">
+		<view v-if="!cellGroup">
 			<slot />
 		</view>
 		<view class="parent">
@@ -39,7 +39,7 @@
 			},
 			border: {
 				type: Boolean,
-				default: true
+				default: false
 			},
 			otherHeight: {
 				type: String,

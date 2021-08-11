@@ -12,6 +12,9 @@
 			<s-input placeholder="请输入学工号" v-model="id"></s-input>
 			<s-input placeholder="请输入密码" v-model="password" :password="true"></s-input>
 			<u-button type="primary" shape="circle" :ripple="true" @click="login">登录</u-button>
+			<view style="margin-top: 20rpx;">
+				<u-button type="success" shape="circle" :ripple="true" @click="guest_login">游客模式（新同学）</u-button>
+			</view>
 		</view>
 		<view
 			style="margin-top: 50rpx; color: #007AFF; float: left;"
@@ -98,6 +101,9 @@
 				uni.navigateTo({
 					url: '/pages/user/reset'
 				})
+			},
+			guest_login(){
+				this.$guest.login()
 			}
 		},
 		onLoad() {

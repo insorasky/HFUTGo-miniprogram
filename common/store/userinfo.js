@@ -7,6 +7,7 @@ const store = new Vuex.Store({
 	state: {
 		userInfo: {
 			hasLogin: false, //是否已登录
+			type: null, //用户类型，正常学生：1，游客：2，封网临时用户：3
 			name: null, //姓名
 			id: null, //学工号
 			password: null, //密码
@@ -30,6 +31,7 @@ const store = new Vuex.Store({
 		reset(state, payload){
 			state.userInfo = {
 				hasLogin: false, //是否已登录
+				type: null,
 				name: null, //姓名
 				id: null, //学工号
 				password: null, //密码

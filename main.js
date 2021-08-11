@@ -23,6 +23,10 @@ Vue.use(sView)
 import user from './common/func/user'
 Vue.prototype.$user = user
 
+// 引入访客操作
+import guest from './common/func/guest'
+Vue.prototype.$guest = guest
+
 // 引入请求
 import request from './common/request/request.js'
 Vue.prototype.$request = request
