@@ -1,12 +1,7 @@
 <template name="s-list">
 	<view
 		class="list"
-		:style="full ? {
-			height: 'calc(100vh - ' + otherHeight + ')',
-			margin: margin
-		}: {
-			margin: margin
-		}"
+		:style="rootStyle"
 	>
 		<u-cell-group :border="border" v-show="cellGroup" :bg-color="bgColor" :title="title">
 			<slot />
@@ -20,10 +15,6 @@
 				text="是空的诶o(╥﹏╥)o"
 				:mode="mode"
 				:class="full ? 'full_empty' : ''"
-				margin-top="30rpx"
-				:style="full ? {
-					height: 'calc(100vh - ' + otherHeight + ')'
-				}: {}"
 			></u-empty>
 		</view>
 	</view>
@@ -88,6 +79,16 @@
 		},
 		created() {
 			this.showEmpty = this.empty
+		},
+		computed:{
+			rootStyle(){
+				return this.full ? {
+					height: 'calc(100vh - ' + this.otherHeight + ')',
+					margin: this.margin
+				}: {
+					margin: this.margin
+				}
+			}
 		}
 	}
 </script>

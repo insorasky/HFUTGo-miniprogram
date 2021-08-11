@@ -11,14 +11,6 @@
 				"navigationStyle": "custom",
 				"navigationBarTextStyle": "black"
 			}
-		},
-		{
-			"path": "pages/home/home",
-			"style": {
-				"enablePullDownRefresh": false,
-				"navigationStyle": "custom",
-				"navigationBarTextStyle": "black"
-			}
 		}
         ,{
             "path" : "pages/user/verify",
